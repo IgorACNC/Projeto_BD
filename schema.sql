@@ -15,6 +15,11 @@ CREATE TABLE IF NOT EXISTS Presidente(
     tempo_cargo INT NOT NULL DEFAULT 1
 );
 
- 
+CREATE TABLE IF NOT EXISTS Estadio(
+    id_estadio INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    capacidade INT NOT NULL
+    -- falta botar o endereco 
+);
 
 
