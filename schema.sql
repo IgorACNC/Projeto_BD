@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS Estadio(
 CREATE TABLE IF NOT EXISTS Time(
     id_time INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
-    quant_jogadores INT NOT NULL,
-    quant_socios INT NOT NULL,
+    quant_jogadores INT NOT NULL DEFAULT 11,
+    quant_socios INT NOT NULL DEFAULT 0,
     fk_tecnico INT,
     fk_presidente INT,
     fk_estadio INT,
