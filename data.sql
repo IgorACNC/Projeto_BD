@@ -160,11 +160,21 @@ INSERT INTO Jogador(nome, idade, altura, numero_camisa, quant_times_jogados, gol
 ('Jonathan Costa',	30,	1.86,95, 17, 1, 'destro', 0, 0, 70, 'Zagueiro', 33,'Brasileiro' ,1 ,30);
 
 INSERT INTO Rival (fk_rivaliza, fk_rivalizado) VALUES
-(1,2), (3,4), (5,6),
-(7,8), (9,10), (11,12),
-(13,14), (15,16), (17,18),
-(19,20), (21,22), (23,24),
-(25,26), (27,28), (29,30);
+(1,2),(2,1),
+(3,4),(4,3),
+(5,6),(6,5),
+(7,8),(8,7),
+(9,10),(10,9),
+(11,12),(12,11),
+(13,14),(14,13),
+(15,16),(16,15),
+(17,18),(18,17),
+(19,20),(20,19),
+(21,22),(22,21),
+(23,24),(24,23),
+(25,26),(26,25),
+(27,28),(28,27),
+(29,30),(30,29);
 
 INSERT INTO Partida(time_casa, time_fora, resultado) VALUES
 ('Palmeiras', 'Corinthians', 'Palmeiras'),
