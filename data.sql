@@ -274,3 +274,10 @@ INSERT INTO Participa (gols_no_jogo, passes_dados, assistencias_no_jogo, tempo_j
 (0,	17,	0,	90,	0, 28),
 (0,	25,	0,	82,	0, 29),
 (0,	37,	0,	90,	0, 30);
+
+INSERT INTO Rival (fk_rivaliza, fk_rivalizado) VALUES
+(1,2), (3,4), (5,6),
+(7,8), (9,10), (11,12),
+(13,14), (15,16), (17,18),
+(19,20), (21,22), (23,24),
+(25,26), (27,28), (29,30);
