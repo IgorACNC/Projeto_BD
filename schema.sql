@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS Jogador(
 CREATE TABLE IF NOT EXISTS Rival(
     fk_rivaliza INT,
     fk_rivalizado INT,
-    FOREIGN KEY (fk_rivaliza) REFERENCES Time(id_time),
-    FOREIGN KEY (fk_rivalizado) REFERENCES Time(id_time),
+    FOREIGN KEY (fk_rivaliza) REFERENCES Time(id_time) ON UPDATE CASCADE,
+    FOREIGN KEY (fk_rivalizado) REFERENCES Time(id_time) ON UPDATE CASCADE,
     PRIMARY KEY (fk_rivaliza, fk_rivalizado) 
 );
 
@@ -76,8 +76,8 @@ CREATE TABLE IF NOT EXISTS Partida(
 CREATE TABLE IF NOT EXISTS Disputa(
     fk_time INT,
     fk_partida INT,
-    FOREIGN KEY (fk_time) REFERENCES Time(id_time),
-    FOREIGN KEY (fk_partida) REFERENCES Partida(id_partida),
+    FOREIGN KEY (fk_time) REFERENCES Time(id_time) ON UPDATE CASCADE,
+    FOREIGN KEY (fk_partida) REFERENCES Partida(id_partida) ON UPDATE CASCADE,
     PRIMARY KEY (fk_time, fk_partida)
 );
 
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS Participa(
     passes_dados INT NOT NULL DEFAULT 0,
     cartoes_sofridos INT NOT NULL DEFAULT 0,
     fk_jogador INT,
-    FOREIGN KEY (fk_jogador) REFERENCES Jogador(id_jogador)
+    FOREIGN KEY (fk_jogador) REFERENCES Jogador(id_jogador) ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Arbitro(
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS Arbitro(
 CREATE TABLE IF NOT EXISTS Apita(
     fk_arbitro INT,
     fk_partida INT,
-    FOREIGN KEY (fk_arbitro) REFERENCES Arbitro(id_arbitro),
-    FOREIGN KEY (fk_partida) REFERENCES Partida(id_partida),
+    FOREIGN KEY (fk_arbitro) REFERENCES Arbitro(id_arbitro) ON UPDATE CASCADE,
+    FOREIGN KEY (fk_partida) REFERENCES Partida(id_partida) ON UPDATE CASCADE,
     PRIMARY KEY (fk_arbitro, fk_partida)
 );
