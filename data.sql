@@ -63,72 +63,6 @@ INSERT INTO Presidente(nome, idade, quant_titulo, tempo_cargo) VALUES
 ('Adson Batista',55,5,80),
 ('Júlio César Heerdt',62,1,44);
 
-INSERT INTO Jogador(nome, idade, altura, numero_camisa, quant_times_jogados, gols_temporada_jogador, pe_dominante, gols_penalti, gols_cabeca, peso, posicao_jogador, quant_jogos, nacionalidade, assistencias, fk_time) VALUES
-('Facundo Torres',	25,	1.77,	17,	3,	8, 'canhoto', 0, 1,	70,		'Meia',	47, 'Uruguaio',5  , 1),
-('Jean Lucas',	27,	1.81,	6,	6,6 , 'destro', 0, 0, 78, 'Meia', 43, 	'Brasileiro',4 , 2),
-('Pedro Raul',	28,	1.93,	9,	12,	 14, 'destro' , 3, 3, 86, 'Atacante', 37 ,'Brasileiro',1 , 3),				
-('Alan Patrick', 34,	1.77, 10, 5, 15, 'destro', 10 , 0 , 68, 'Meia', 35,	'Brasileiro',12 , 4),
-('Arrascaeta',	31,	1.74,	10,	3, 17, 'destro', 3, 1, 73, 'Meia', 42,  'Uruguaio', 13, 5),
-('Isidro Pitta',26	,1.83,	9,	8, 8, 'destro', 1, 1, 87, 'Atacante', 32, 'Paraguaio',2 , 6),
-('Kaio Jorge',	23,	1.82,	19,	4, 18, 'destro', 0, 2, 64, 'Atacante' , 31, 'Brasileiro', 6, 7),
-('Reinaldo',35,	1.78,	6,	7, 8, 'canhoto', 5, 1, 79, 'Lateral', 30, 'Brasileiro' ,5 , 8),
-('Germán Cano',	37,	1.76,	14,	9, 19, 'destro', 2, 3 , 72, 'Atacante', 38,	'Argentino',1 , 9),
-('Tiago Volpi',	34,	1.89,	1,7, 1,  'destro', 1, 0, 84 , 'Goleiro', 37, 'Brasileiro' ,0 , 10),
-('Memphis Depay',31,1.78,	10,	6, 14, 'destro', 2 , 1, 78, 'Atacante', 38,	'Holandes',10 , 11),
-('Pablo Vegetti',36,1.87,	99, 8, 24, 'destro', 7, 8, 83, 'Atacante', 44, 'Argentino',2 , 12),
-('Zé Lucas',	17,	1.74,	58,1, 0, 'destro', 0, 0, 70, 'Volante', 27,	'Brasileiro' , 7, 13),
-('Ferreirinha',	27,	1.76,	11,	6, 7, 'destro', 0, 3, 68, 'Atacante', 35,'Brasileiro', 0, 14),
-('Alex Telles',	32,	1.81,13,9, 4, 'canhoto', 3, 0, 71, 'Lateral', 41,	'Brasileiro',0 , 15),
-('Alan Ruschel', 36,1.75,28,	12, 0, 'canhoto', 0, 0, 73, 'Lateral', 18, 'Brasileiro' ,0 , 16),
-('Tomás Rincón',37,	1.75,8,9, 0, 'destro', 0, 0, 75, 'Volante', 27, 'Venezuelano',0 , 17),
-('Lucas Arcanjo',27,1.89,,1,1,0, 'destro', 0, 0, 88, 'Goleiro', 43,	'Brasileiro',0 ,18),
-('Lyanco',	28,	1.87,	4,	6, 4, 'destro', 0, 2, 83, 'Zagueiro', 34, 'Brasileiro',4 , 19),
-('Gastón Ávila',23,1.82, 3,	5, 0, 'canhoto', 0, 0, 80, 'Zagueiro', 18,'Argentino', 0, 20),
-('Miguelito', 21,1.77,	7,	2, 4, 'canhoto', 3, 0, 69, 'Meia', 38,	'Boliviano' , 4,21),
-('Mateusinho',26,1.75,	98,	6, 5, 'destro', 0, 0, 63, 'Lateral', 33, 'Brasileiro' ,5 , 22),
-('Santos',	35,	1.88,	23,	3, 0, 'destro', 0, 0, 79, 'Goleiro', 13,'Brasileiro',0 , 23),
-('Vinicius',32,	1.80,	7,	4, 2, 'destro', 0, 0 ,70, 'Atacante', 15,'Brasileiro', 2, 24),
-('Sebastian Gomez',	29,	1.72,19	,3, 2, 'canhoto', 0, 0, 72, 'Meia', 31, 'Colombiano',1 , 25),
-('Luiz Felipe',	32,	1.89,3,	6, 2, 'destro', 0, 1 , 79, 'Zagueiro', 14,'Brasileiro',0 , 26),
-('Matheus Trindade',29,	1.75, 5	,14, 3, 'Volante', 0, 0 72, 'Volante', 37, 'Brasileiro',0 , 27),
-('Rokenedy',23,	1.86,12,4, 0, 'destro', 0, 0, 76, 'Goleiro', 16, 'Brasileiro', 0, 28),
-('Dudu',28,	1.75,	2,	5, 1, 'destro', 0, 0, 71, 'Lateral', 16,'Brasileiro', 1, 29),
-('Jonathan Costa',	30,	1.86,95, 17, 1, 'destro', 0, 0, 70, 'Zagueiro', 33,'Brasileiro' ,1 ,30);
-
-
-
-INSERT INTO Arbitro(nome,idade,nedia_cartoes,media_faltas) VALUES
-('Wilton Pereira Sampaio',43,2.45,24.31),
-('Raphael Claus',46,2.01,21.87),
-('Ramon Abatti Abel',35,2.27,24.08),
-('Edina Alves Batista',45,1.94,22.79),
-('Marcelo de Lima Henrique',54,2.21,27.12),
-('Rodolpho Toski Marques',38,2.38,30.5),
-('Anderson Daronco',44,2.06,24.71),
-('Rafael Rodrigo Klein',35,2.71,22.9),
-('Bruno Arleu de Araújo',42,2.27,26.25),
-('Bráulio da Silva Machado',46,2.9,26.74),
-('Sávio Pereira Sampaio',40,2.17,28.82),
-('Paulo Cesar Zanovelli da Silva',35,2.75,27.45),
-('Felipe Fernandes de Lima',38,2.59,30.82),
-('Igor Junio Benevenuto de Oliveira',44,3.44,29),
-('Davi de Oliveira Lacerda',29,2.2,17.09),
-('Rafael Traci',43,2.76,30.35),
-('Flavio Rodrigues de Souza',45,2.21,23.73),
-('Ricardo Marques Ribeiro',46,2.08,30.68),
-('Leandro Pedro Vuaden',50,1.97,25.01),
-('Wagner do Nascimento Magalhães',46,2.68,26.66),
-('Vinicius Furlan',45,2.4,27.4),
-('Caio Max Augusto Vieira',43,2.32,28.03),
-('Lucas Paulo Torezin',42,3.11,20.55),
-('Jefferson Ferreira de Moraes',38,2.45,27.23),
-('Deborah Cecilia Cruz Correia',40,3.5,24),
-('Rodrigo Jose Pereira de Lima',38,2.88,23.64),
-('Heber Roberto Lopes',53,1.73,31.11),
-('Luiz Flavio de Oliveira',48,2.53,26.07),
-('Jonathan Benkenstein Pinheiro',39,2.2,22.93),
-('Jean Pierre Goncalves Lima',44,1.85,25.86);
-
 INSERT INTO Estadio(nome, capacidade, rua, numero, bairro) VALUES
 ('Allianz Parque', 43713, 'Av. Francisco Matarazzo', 1705, 'Água Branca'),
 ('Arena Fonte Nova', 47364, 'Ladeira da Fonte das Pedras', 0, 'Nazaré'),
@@ -193,6 +127,45 @@ INSERT INTO Time(nome, quant_jogadores, quant_socios, fk_tecnico, fk_presidente,
 ('Atlético Goianiense',34 ,3100 ,29 ,29 ,29),
 ('Avaí FC',32 ,12030 ,30 ,30 ,30);
 
+INSERT INTO Jogador(nome, idade, altura, numero_camisa, quant_times_jogados, gols_temporada_jogador, pe_dominante, gols_penalti, gols_cabeca, peso, posicao_jogador, quant_jogos, nacionalidade, assistencias, fk_time) VALUES
+('Facundo Torres',	25,	1.77,	17,	3,	8, 'canhoto', 0, 1,	70,		'Meia',	47, 'Uruguaio',5  , 1),
+('Jean Lucas',	27,	1.81,	6,	6,6 , 'destro', 0, 0, 78, 'Meia', 43, 	'Brasileiro',4 , 2),
+('Pedro Raul',	28,	1.93,	9,	12,	 14, 'destro' , 3, 3, 86, 'Atacante', 37 ,'Brasileiro',1 , 3),				
+('Alan Patrick', 34,	1.77, 10, 5, 15, 'destro', 10 , 0 , 68, 'Meia', 35,	'Brasileiro',12 , 4),
+('Arrascaeta',	31,	1.74,	10,	3, 17, 'destro', 3, 1, 73, 'Meia', 42,  'Uruguaio', 13, 5),
+('Isidro Pitta',26	,1.83,	9,	8, 8, 'destro', 1, 1, 87, 'Atacante', 32, 'Paraguaio',2 , 6),
+('Kaio Jorge',	23,	1.82,	19,	4, 18, 'destro', 0, 2, 64, 'Atacante' , 31, 'Brasileiro', 6, 7),
+('Reinaldo',35,	1.78,	6,	7, 8, 'canhoto', 5, 1, 79, 'Lateral', 30, 'Brasileiro' ,5 , 8),
+('Germán Cano',	37,	1.76,	14,	9, 19, 'destro', 2, 3 , 72, 'Atacante', 38,	'Argentino',1 , 9),
+('Tiago Volpi',	34,	1.89,	1,7, 1,  'destro', 1, 0, 84 , 'Goleiro', 37, 'Brasileiro' ,0 , 10),
+('Memphis Depay',31,1.78,	10,	6, 14, 'destro', 2 , 1, 78, 'Atacante', 38,	'Holandes',10 , 11),
+('Pablo Vegetti',36,1.87,	99, 8, 24, 'destro', 7, 8, 83, 'Atacante', 44, 'Argentino',2 , 12),
+('Zé Lucas',	17,	1.74,	58,1, 0, 'destro', 0, 0, 70, 'Volante', 27,	'Brasileiro' , 7, 13),
+('Ferreirinha',	27,	1.76,	11,	6, 7, 'destro', 0, 3, 68, 'Atacante', 35,'Brasileiro', 0, 14),
+('Alex Telles',	32,	1.81,13,9, 4, 'canhoto', 3, 0, 71, 'Lateral', 41,	'Brasileiro',0 , 15),
+('Alan Ruschel', 36,1.75,28,	12, 0, 'canhoto', 0, 0, 73, 'Lateral', 18, 'Brasileiro' ,0 , 16),
+('Tomás Rincón',37,	1.75,8,9, 0, 'destro', 0, 0, 75, 'Volante', 27, 'Venezuelano',0 , 17),
+('Lucas Arcanjo',27,1.89,,1,1,0, 'destro', 0, 0, 88, 'Goleiro', 43,	'Brasileiro',0 ,18),
+('Lyanco',	28,	1.87,	4,	6, 4, 'destro', 0, 2, 83, 'Zagueiro', 34, 'Brasileiro',4 , 19),
+('Gastón Ávila',23,1.82, 3,	5, 0, 'canhoto', 0, 0, 80, 'Zagueiro', 18,'Argentino', 0, 20),
+('Miguelito', 21,1.77,	7,	2, 4, 'canhoto', 3, 0, 69, 'Meia', 38,	'Boliviano' , 4,21),
+('Mateusinho',26,1.75,	98,	6, 5, 'destro', 0, 0, 63, 'Lateral', 33, 'Brasileiro' ,5 , 22),
+('Santos',	35,	1.88,	23,	3, 0, 'destro', 0, 0, 79, 'Goleiro', 13,'Brasileiro',0 , 23),
+('Vinicius',32,	1.80,	7,	4, 2, 'destro', 0, 0 ,70, 'Atacante', 15,'Brasileiro', 2, 24),
+('Sebastian Gomez',	29,	1.72,19	,3, 2, 'canhoto', 0, 0, 72, 'Meia', 31, 'Colombiano',1 , 25),
+('Luiz Felipe',	32,	1.89,3,	6, 2, 'destro', 0, 1 , 79, 'Zagueiro', 14,'Brasileiro',0 , 26),
+('Matheus Trindade',29,	1.75, 5	,14, 3, 'Volante', 0, 0 72, 'Volante', 37, 'Brasileiro',0 , 27),
+('Rokenedy',23,	1.86,12,4, 0, 'destro', 0, 0, 76, 'Goleiro', 16, 'Brasileiro', 0, 28),
+('Dudu',28,	1.75,	2,	5, 1, 'destro', 0, 0, 71, 'Lateral', 16,'Brasileiro', 1, 29),
+('Jonathan Costa',	30,	1.86,95, 17, 1, 'destro', 0, 0, 70, 'Zagueiro', 33,'Brasileiro' ,1 ,30);
+
+INSERT INTO Rival (fk_rivaliza, fk_rivalizado) VALUES
+(1,2), (3,4), (5,6),
+(7,8), (9,10), (11,12),
+(13,14), (15,16), (17,18),
+(19,20), (21,22), (23,24),
+(25,26), (27,28), (29,30);
+
 INSERT INTO Partida(time_casa, time_fora, resultado) VALUES
 ('Palmeiras', 'Corinthians', 'Palmeiras'),
 ('Bahia', 'Vitória', 'Bahia'),
@@ -225,15 +198,6 @@ INSERT INTO Partida(time_casa, time_fora, resultado) VALUES
 ('Atlético GO','Amazonas','Atlético GO'),
 ('Avaí','Operário','Avaí');
 
-INSERT INTO Apita (fk_arbitro, fk_partida) VALUES
-(1,1), (2,2), (3,3), (4,4), (5,5),
-(6,6), (7,7), (8,8), (9,9), (10,10),
-(11,11), (12,12), (13,13), (14,14),
-(15,15), (16,16), (17,17), (18,18),
-(19,19), (20,20), (21,21), (22,22),
-(23,23), (24,24), (25,25), (26,26),
-(27,27), (28,28), (29,29), (30,30);
-
 INSERT INTO Disputa (fk_time, fk_partida) VALUES
 (1,1), (2,2), (3,3), (4,4), (5,5),
 (6,6), (7,7), (8,8), (9,9), (10,10),
@@ -244,40 +208,57 @@ INSERT INTO Disputa (fk_time, fk_partida) VALUES
 (27,27), (28,28), (29,29), (30,30);
 
 INSERT INTO Participa (gols_no_jogo, passes_dados, assistencias_no_jogo, tempo_jogado, cartoes_sofridos, fk_jogador) VALUES
-(0,	26,	1,	90,	0, 1),
-(0,	0,	0,	5,	2, 2),
-(0,	8,	0,	90,	0, 3),
-(0,	32,	0,	74,	0, 4),
-(1,	40,	2,	63,	0, 5),
-(1,	2,	0,	18,	1, 6),
-(0,	7,	0,	90,	0, 7),
-(0,	27,	1,	90,	0, 8),
-(1,	11,	0,	75,	0, 9),
-(0,	25,	0,	90,	0, 10),
-(1,	22,	1,	90,	0, 11),
-(0,	10,	0,	90,	1, 12),
-(0,	44,	0,	90,	0, 13),
-(0,	13,	0,	63,	0, 14),
-(0,	5,	0,	8,  0, 15),
-(0,	30,	0,	90,	1, 16),
-(0,	24,	0,	62,	0, 17),
-(0,	24,	0,	90,	0, 18),
-(0,	62,	0,	90,	0, 19),
-(0,	19,	0,	90,	0, 20),
-(0,	14,	0,	78,	0, 21),
-(0,	21,	0,	79,	0, 22),
-(0,	14,	0,	90,	0, 23),
-(1,	26,	0,	71,	1, 24),
-(0,	22,	0,	67,	0, 25),
-(0,	49,	0,	84,	0, 26),
-(0,	39,	0,	90,	0, 27),
-(0,	17,	0,	90,	0, 28),
-(0,	25,	0,	82,	0, 29),
-(0,	37,	0,	90,	0, 30);
+(0,	26,	1,	90,	0, 1), (0,	0,	0,	5,	2, 2), (0,	8,	0,	90,	0, 3),
+(0,	32,	0,	74,	0, 4), (1,	40,	2,	63,	0, 5), (1,	2,	0,	18,	1, 6),
+(0,	7,	0,	90,	0, 7), (0,	27,	1,	90,	0, 8), (1,	11,	0,	75,	0, 9),
+(0,	25,	0,	90,	0, 10),(1,	22,	1,	90,	0, 11), (0,	10,	0,	90,	1, 12),
+(0,	44,	0,	90,	0, 13), (0,	13,	0,	63,	0, 14), (0,	5,	0,	8,  0, 15),
+(0,	30,	0,	90,	1, 16), (0,	24,	0,	62,	0, 17), (0,	24,	0,	90,	0, 18),
+(0,	62,	0,	90,	0, 19), (0,	19,	0,	90,	0, 20), (0,	14,	0,	78,	0, 21),
+(0,	21,	0,	79,	0, 22), (0,	14,	0,	90,	0, 23), (1,	26,	0,	71,	1, 24),
+(0,	22,	0,	67,	0, 25), (0,	49,	0,	84,	0, 26), (0,	39,	0,	90,	0, 27),
+(0,	17,	0,	90,	0, 28), (0,	25,	0,	82,	0, 29), (0,	37,	0,	90,	0, 30);
 
-INSERT INTO Rival (fk_rivaliza, fk_rivalizado) VALUES
-(1,2), (3,4), (5,6),
-(7,8), (9,10), (11,12),
-(13,14), (15,16), (17,18),
-(19,20), (21,22), (23,24),
-(25,26), (27,28), (29,30);
+INSERT INTO Arbitro(nome,idade,nedia_cartoes,media_faltas) VALUES
+('Wilton Pereira Sampaio',43,2.45,24.31),
+('Raphael Claus',46,2.01,21.87),
+('Ramon Abatti Abel',35,2.27,24.08),
+('Edina Alves Batista',45,1.94,22.79),
+('Marcelo de Lima Henrique',54,2.21,27.12),
+('Rodolpho Toski Marques',38,2.38,30.5),
+('Anderson Daronco',44,2.06,24.71),
+('Rafael Rodrigo Klein',35,2.71,22.9),
+('Bruno Arleu de Araújo',42,2.27,26.25),
+('Bráulio da Silva Machado',46,2.9,26.74),
+('Sávio Pereira Sampaio',40,2.17,28.82),
+('Paulo Cesar Zanovelli da Silva',35,2.75,27.45),
+('Felipe Fernandes de Lima',38,2.59,30.82),
+('Igor Junio Benevenuto de Oliveira',44,3.44,29),
+('Davi de Oliveira Lacerda',29,2.2,17.09),
+('Rafael Traci',43,2.76,30.35),
+('Flavio Rodrigues de Souza',45,2.21,23.73),
+('Ricardo Marques Ribeiro',46,2.08,30.68),
+('Leandro Pedro Vuaden',50,1.97,25.01),
+('Wagner do Nascimento Magalhães',46,2.68,26.66),
+('Vinicius Furlan',45,2.4,27.4),
+('Caio Max Augusto Vieira',43,2.32,28.03),
+('Lucas Paulo Torezin',42,3.11,20.55),
+('Jefferson Ferreira de Moraes',38,2.45,27.23),
+('Deborah Cecilia Cruz Correia',40,3.5,24),
+('Rodrigo Jose Pereira de Lima',38,2.88,23.64),
+('Heber Roberto Lopes',53,1.73,31.11),
+('Luiz Flavio de Oliveira',48,2.53,26.07),
+('Jonathan Benkenstein Pinheiro',39,2.2,22.93),
+('Jean Pierre Goncalves Lima',44,1.85,25.86);
+
+INSERT INTO Apita (fk_arbitro, fk_partida) VALUES
+(1,1), (2,2), (3,3), (4,4), (5,5),
+(6,6), (7,7), (8,8), (9,9), (10,10),
+(11,11), (12,12), (13,13), (14,14),
+(15,15), (16,16), (17,17), (18,18),
+(19,19), (20,20), (21,21), (22,22),
+(23,23), (24,24), (25,25), (26,26),
+(27,27), (28,28), (29,29), (30,30);
+
+
+
