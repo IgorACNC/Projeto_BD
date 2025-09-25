@@ -1,10 +1,11 @@
 {
-    "java.project.referencedLibraries": [
-        "c:\\Users\\iacnc\\Downloads\\apache-tomcat-9.0.109-windows-x64\\apache-tomcat-9.0.109\\lib\\servlet-api.jar",
-        "c:\\Users\\iacnc\\Downloads\\Projeto_BD\\lib\\mysql-connector-j-9.4.0.jar",
-        "c:\\Users\\iacnc\\Downloads\\apache-tomcat-9.0.109-windows-x64\\apache-tomcat-9.0.109\\lib\\jsp-api.jar"
-    ],
     "java.project.sourcePaths": [
         "src"
-    ]
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

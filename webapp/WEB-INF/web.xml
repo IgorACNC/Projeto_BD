@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <display-name>Brasileirão Serie A - Sistema de Gerenciamento</display-name>
+    
+    <servlet>
+        <servlet-name>TimeServlet</servlet-name>
+        <servlet-class>servlets.TimeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TimeServlet</servlet-name>
+        <url-pattern>/times</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>JogadorServlet</servlet-name>
+        <servlet-class>servlets.JogadorServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JogadorServlet</servlet-name>
+        <url-pattern>/jogadores</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TecnicoServlet</servlet-name>
+        <servlet-class>servlets.TecnicoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TecnicoServlet</servlet-name>
+        <url-pattern>/tecnicos</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EstadioServlet</servlet-name>
+        <servlet-class>servlets.EstadioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EstadioServlet</servlet-name>
+        <url-pattern>/estadios</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PresidenteServlet</servlet-name>
+        <servlet-class>servlets.PresidenteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PresidenteServlet</servlet-name>
+        <url-pattern>/presidentes</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RelatorioServlet</servlet-name>
+        <servlet-class>servlets.RelatorioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RelatorioServlet</servlet-name>
+        <url-pattern>/relatorios</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
