@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Presidente(
 
 CREATE TABLE IF NOT EXISTS Estadio(
     id_estadio INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL UNIQUE, 
+    nome VARCHAR(100) NOT NULL, 
     capacidade INT NOT NULL,
     rua VARCHAR(100) NOT NULL,
     numero INT NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Estadio(
 
 CREATE TABLE IF NOT EXISTS Time(
     id_time INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL UNIQUE,
+    nome VARCHAR(100) NOT NULL,
     quant_jogadores INT NOT NULL DEFAULT 11,
     quant_socios INT NOT NULL DEFAULT 0,
     fk_tecnico INT,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS Partida(
     id_partida INT PRIMARY KEY AUTO_INCREMENT,
     time_casa VARCHAR(100) NOT NULL,
     time_fora VARCHAR(100) NOT NULL,
-    resultado VARCHAR(10) NOT NULL
+    resultado VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Disputa(
