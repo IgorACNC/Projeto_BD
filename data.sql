@@ -122,7 +122,7 @@ INSERT INTO Time(nome, quant_jogadores, quant_socios, fk_tecnico, fk_presidente,
 ('Náutico',35 ,24626 ,24 ,24 ,24),
 ('Coritiba FC',30 ,3000 ,25 ,25 ,25),
 ('Goiás EC',29 ,10481 ,26 ,26 ,26),
-('Criciúma EC',47 ,17300 ,27 ,27 ,27);
+('Criciúma EC',47 ,17300 ,27 ,27 ,27),
 ('Santa Cruz FC',33 ,14607 ,28 ,28 ,28),
 ('Atlético Goianiense',34 ,3100 ,29 ,29 ,29),
 ('Avaí FC',32 ,12030 ,30 ,30 ,30);
@@ -145,7 +145,7 @@ INSERT INTO Jogador(nome, idade, altura, numero_camisa, quant_times_jogados, gol
 ('Alex Telles',	32,	1.81,13,9, 4, 'canhoto', 3, 0, 71, 'Lateral', 41,	'Brasileiro',0 , 15),
 ('Alan Ruschel', 36,1.75,28,	12, 0, 'canhoto', 0, 0, 73, 'Lateral', 18, 'Brasileiro' ,0 , 16),
 ('Tomás Rincón',37,	1.75,8,9, 0, 'destro', 0, 0, 75, 'Volante', 27, 'Venezuelano',0 , 17),
-('Lucas Arcanjo',27,1.89,,1,1,0, 'destro', 0, 0, 88, 'Goleiro', 43,	'Brasileiro',0 ,18),
+('Lucas Arcanjo',27, 1.89 ,1,1,0, 'destro', 0, 0, 88, 'Goleiro', 43,	'Brasileiro',0 ,18),
 ('Lyanco',	28,	1.87,	4,	6, 4, 'destro', 0, 2, 83, 'Zagueiro', 34, 'Brasileiro',4 , 19),
 ('Gastón Ávila',23,1.82, 3,	5, 0, 'canhoto', 0, 0, 80, 'Zagueiro', 18,'Argentino', 0, 20),
 ('Miguelito', 21,1.77,	7,	2, 4, 'canhoto', 3, 0, 69, 'Meia', 38,	'Boliviano' , 4,21),
@@ -154,7 +154,7 @@ INSERT INTO Jogador(nome, idade, altura, numero_camisa, quant_times_jogados, gol
 ('Vinicius',32,	1.80,	7,	4, 2, 'destro', 0, 0 ,70, 'Atacante', 15,'Brasileiro', 2, 24),
 ('Sebastian Gomez',	29,	1.72,19	,3, 2, 'canhoto', 0, 0, 72, 'Meia', 31, 'Colombiano',1 , 25),
 ('Luiz Felipe',	32,	1.89,3,	6, 2, 'destro', 0, 1 , 79, 'Zagueiro', 14,'Brasileiro',0 , 26),
-('Matheus Trindade',29,	1.75, 5	,14, 3, 'Volante', 0, 0 72, 'Volante', 37, 'Brasileiro',0 , 27),
+('Matheus Trindade',29,	1.75, 5	,14, 3, 'destro', 0, 0, 72, 'Volante', 37, 'Brasileiro',0 , 27),
 ('Rokenedy',23,	1.86,12,4, 0, 'destro', 0, 0, 76, 'Goleiro', 16, 'Brasileiro', 0, 28),
 ('Dudu',28,	1.75,	2,	5, 1, 'destro', 0, 0, 71, 'Lateral', 16,'Brasileiro', 1, 29),
 ('Jonathan Costa',	30,	1.86,95, 17, 1, 'destro', 0, 0, 70, 'Zagueiro', 33,'Brasileiro' ,1 ,30);
@@ -229,7 +229,7 @@ INSERT INTO Participa (gols_no_jogo, passes_dados, assistencias_no_jogo, tempo_j
 (0,	22,	0,	67,	0, 25), (0,	49,	0,	84,	0, 26), (0,	39,	0,	90,	0, 27),
 (0,	17,	0,	90,	0, 28), (0,	25,	0,	82,	0, 29), (0,	37,	0,	90,	0, 30);
 
-INSERT INTO Arbitro(nome,idade,nedia_cartoes,media_faltas) VALUES
+INSERT INTO Arbitro(nome,idade,media_cartoes,media_faltas) VALUES
 ('Wilton Pereira Sampaio',43,2.45,24.31),
 ('Raphael Claus',46,2.01,21.87),
 ('Ramon Abatti Abel',35,2.27,24.08),
@@ -269,6 +269,3 @@ INSERT INTO Apita (fk_arbitro, fk_partida) VALUES
 (19,19), (20,20), (21,21), (22,22),
 (23,23), (24,24), (25,25), (26,26),
 (27,27), (28,28), (29,29), (30,30);
-
-
-
