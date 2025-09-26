@@ -96,8 +96,9 @@ public class JogadoresHandler implements HttpHandler {
             html.append("<td>");
             html.append("<a href='/jogadores/editar/").append(jogador.getId_jogador())
                     .append("' class='btn btn-warning'>Editar</a>");
-            html.append("<a href='/jogadores/excluir/").append(jogador.getId_jogador())
-                    .append("' class='btn btn-danger' onclick='return confirm(\"Tem certeza?\")'>Excluir</a>");
+            html.append("<form method='POST' action='/jogadores/excluir/").append(jogador.getId_jogador()).append("' style='display:inline;'>");
+            html.append("<button type='submit' class='btn btn-danger' onclick='return confirm(\"Tem certeza que deseja excluir este jogador?\")'>Excluir</button>");
+            html.append("</form>");
             html.append("</td>");
             html.append("</tr>");
         }
