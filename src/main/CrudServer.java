@@ -37,7 +37,7 @@ public class CrudServer {
         server.createContext("/times", new TimesHandler());
         server.createContext("/jogadores", new JogadoresHandler());
         server.createContext("/relatorios", new RelatoriosHandler());
-
+        server.createContext("/public/", new StaticFileHandler());
         server.setExecutor(null);
         server.start();
 
@@ -46,58 +46,130 @@ public class CrudServer {
         System.out.println("⏹️  Para parar, pressione Ctrl+C");
     }
 
-    static class HomeHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange exchange) throws IOException {
-            String html = "<!DOCTYPE html>" +
-                    "<html lang='pt-BR'>" +
-                    "<head>" +
-                    "<meta charset='UTF-8'>" +
-                    "<title>Brasileirão Série A - CRUD</title>" +
-                    "<style>" +
-                    "body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }" +
-                    ".container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }"
-                    +
-                    "h1 { color: #2c3e50; text-align: center; }" +
-                    ".menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 30px; }"
-                    +
-                    ".btn { display: block; padding: 20px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; text-align: center; transition: background-color 0.3s; font-size: 18px; }"
-                    +
-                    ".btn:hover { background: #2980b9; }" +
-                    ".btn.success { background: #27ae60; }" +
-                    ".btn.warning { background: #f39c12; }" +
-                    ".stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0; }"
-                    +
-                    ".stat { text-align: center; padding: 15px; background: #ecf0f1; border-radius: 5px; }" +
-                    ".stat .number { font-size: 2em; font-weight: bold; color: #3498db; }" +
-                    "</style>" +
-                    "</head>" +
-                    "<body>" +
-                    "<div class='container'>" +
-                    "<h1>🏆 Brasileirão Série A</h1>" +
-                    "<p style='text-align: center; color: #7f8c8d;'>Sistema CRUD - Gerenciamento Completo</p>" +
-                    "<div class='stats'>" +
-                    "<div class='stat'><div class='number'>30</div><div>Times</div></div>" +
-                    "<div class='stat'><div class='number'>30</div><div>Jogadores</div></div>" +
-                    "<div class='stat'><div class='number'>30</div><div>Técnicos</div></div>" +
-                    "<div class='stat'><div class='number'>30</div><div>Estádios</div></div>" +
-                    "</div>" +
-                    "<div class='menu'>" +
-                    "<a href='/times' class='btn'>📋 Gerenciar Times<br><small>CRUD Completo</small></a>" +
-                    "<a href='/jogadores' class='btn success'>⚽ Gerenciar Jogadores<br><small>CRUD Completo</small></a>"+
-                    "<a href='/relatorios' class='btn' style='background-color:#8e44ad;'>📊 Ver Relatorios</a>" +
-                    "</div>" +
-                    "</div>" +
-                    "</body>" +
-                    "</html>";
+    // Dentro do arquivo CrudServer.java, substitua o HomeHandler antigo por este
 
-            exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
-            exchange.sendResponseHeaders(200, html.getBytes().length);
-            OutputStream os = exchange.getResponseBody();
+static class HomeHandler implements HttpHandler {
+    @Override
+    public void handle(HttpExchange exchange) throws IOException {
+        String html = """
+                <!DOCTYPE html>
+                <html lang="pt-BR">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Brasileirão Série A - Dashboard</title>
+                    <style>
+                        body { 
+                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                            margin: 0; 
+                            background-color: #f4f7f9; 
+                            color: #333;
+                        }
+                        .container { 
+                            max-width: 1100px; 
+                            margin: 30px auto; 
+                            padding: 20px;
+                        }
+                        header {
+                            text-align: center;
+                            margin-bottom: 40px;
+                        }
+                        header h1 {
+                            font-size: 2.8em;
+                            color: #2c3e50;
+                            margin-bottom: 5px;
+                        }
+                        header p {
+                            font-size: 1.2em;
+                            color: #7f8c8d;
+                        }
+                        .menu-principal {
+                            text-align: center;
+                            margin-bottom: 40px;
+                        }
+                        .btn {
+                            display: inline-block;
+                            padding: 12px 28px;
+                            margin: 5px;
+                            border: none;
+                            border-radius: 50px; /* Botoes arredondados */
+                            cursor: pointer;
+                            text-decoration: none;
+                            font-size: 16px;
+                            font-weight: 600;
+                            transition: transform 0.2s, box-shadow 0.2s;
+                        }
+                        .btn:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                        }
+                        .btn-times { background-color: #3498db; color: white; }
+                        .btn-jogadores { background-color: #27ae60; color: white; }
+                        .btn-relatorios { background-color: #8e44ad; color: white; }
+                        
+                        .grafico-card {
+                            background: white;
+                            padding: 30px;
+                            border-radius: 12px;
+                            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+                        }
+                        .grafico-card h2 {
+                            margin-top: 0;
+                            color: #2c3e50;
+                        }
+                        .grafico-card .descricao {
+                            color: #555;
+                            font-size: 1.1em;
+                            line-height: 1.6;
+                        }
+                        .grafico-imagem {
+                            margin-top: 20px;
+                            text-align: center;
+                        }
+                        .grafico-imagem img {
+                            max-width: 100%;
+                            height: auto;
+                            border-radius: 8px;
+                            border: 1px solid #eee;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <header>
+                            <h1>Futebol Brasileiro 2025</h1>
+                            <p>Visualize e analise dados estatísticos do Brasileirão.</p>
+                        </header>
+
+                        <nav class="menu-principal">
+                            <a href="/times" class="btn btn-times">Gerenciar Times</a>
+                            <a href="/jogadores" class="btn btn-jogadores">Gerenciar Jogadores</a>
+                            <a href="/relatorios" class="btn btn-relatorios">Ver Relatórios</a>
+                        </nav>
+
+                        <main>
+                            <section class="grafico-card">
+                                <h2>Estatísticas por Posição de Jogador</h2>
+                                <p class="descricao">
+                                    Este gráfico analisa a distribuição e performance média dos jogadores agrupados por sua posição em campo. Podemos observar a contagem de atletas, a média de gols, assistências e outras métricas chave, fornecendo insights sobre onde se concentram os talentos ofensivos e defensivos do campeonato.
+                                </p>
+                                <div class="grafico-imagem">
+                                    <img src="/public/images/meu-grafico.png" alt="Gráfico de estatísticas por posição">
+                                </div>
+                            </section>
+                        </main>
+                    </div>
+                </body>
+                </html>
+                """;
+
+        exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
+        exchange.sendResponseHeaders(200, html.getBytes().length);
+        try (OutputStream os = exchange.getResponseBody()) {
             os.write(html.getBytes());
-            os.close();
         }
     }
+}
 
     static class TimesHandler implements HttpHandler {
         @Override
@@ -563,4 +635,46 @@ private void mostrarMenuRelatorios(HttpExchange exchange) throws IOException {
     }
 }
 }
+
+static class StaticFileHandler implements HttpHandler {
+    @Override
+    public void handle(HttpExchange exchange) throws IOException {
+        String uriPath = exchange.getRequestURI().getPath();
+        // Mapeia a URL para um arquivo local (ex: /public/images/meu-grafico.png -> .\public\images\meu-grafico.png)
+        String filePath = "." + uriPath;
+        File file = new File(filePath);
+
+        if (file.exists() && !file.isDirectory()) {
+            // Determina o tipo de arquivo para o navegador
+            String contentType = "application/octet-stream"; // Tipo padrao
+            if (filePath.endsWith(".png")) {
+                contentType = "image/png";
+            } else if (filePath.endsWith(".jpg") || filePath.endsWith(".jpeg")) {
+                contentType = "image/jpeg";
+            } else if (filePath.endsWith(".css")) {
+                contentType = "text/css";
+            }
+
+            exchange.getResponseHeaders().set("Content-Type", contentType);
+            exchange.sendResponseHeaders(200, file.length());
+
+            try (OutputStream os = exchange.getResponseBody();
+                 FileInputStream fis = new FileInputStream(file)) {
+                final byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = fis.read(buffer)) != -1) {
+                    os.write(buffer, 0, bytesRead);
+                }
+            }
+        } else {
+            // Se o arquivo nao for encontrado, envia um erro 404
+            String response = "404 (Not Found)\n";
+            exchange.sendResponseHeaders(404, response.length());
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(response.getBytes());
+            }
+        }
+    }
+}
+
 }
