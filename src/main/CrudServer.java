@@ -12,17 +12,17 @@ import java.util.List;
 import java.util.Map;
 
 import dao.TimeDAO;
-import dao.JogadorDAO;
+//import dao.JogadorDAO;
 import dao.TecnicoDAO;
 import dao.EstadioDAO;
 import dao.PresidenteDAO;
 import dao.RelatorioDAO;
 import model.Time;
-import model.Jogador;
+//import model.Jogador;
 import model.Tecnico;
 import model.Estadio;
 import model.Presidente;
-import main.JogadoresHandler;
+//import main.JogadoresHandler;
 
 public class CrudServer {
     private static final int PORT = 8080;
