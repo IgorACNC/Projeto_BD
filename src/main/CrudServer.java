@@ -78,7 +78,7 @@ public class CrudServer {
                     "<p style='text-align: center; color: #7f8c8d;'>Sistema CRUD - Gerenciamento Completo</p>" +
                     "<div class='stats'>" +
                     "<div class='stat'><div class='number'>30</div><div>Times</div></div>" +
-                    "<div class='stat'><div class='number'>900+</div><div>Jogadores</div></div>" +
+                    "<div class='stat'><div class='number'>30</div><div>Jogadores</div></div>" +
                     "<div class='stat'><div class='number'>30</div><div>Técnicos</div></div>" +
                     "<div class='stat'><div class='number'>30</div><div>Estádios</div></div>" +
                     "</div>" +
