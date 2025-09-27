@@ -95,6 +95,86 @@ public class DashboardHandler implements HttpHandler {
                                     <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
                                 </div>
                             </section>
+
+                            <section class="grafico-card">
+                                <h2>Ranking de Artilheiros</h2>
+                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <div class="grafico-imagem">
+                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                </div>
+                            </section>
+
+                            <section class="grafico-card">
+                                <h2>Ranking de Artilheiros</h2>
+                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <div class="grafico-imagem">
+                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                </div>
+                            </section>
+
+                            <section class="grafico-card">
+                                <h2>Ranking de Artilheiros</h2>
+                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <div class="grafico-imagem">
+                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                </div>
+                            </section>
+
+                            <section class="grafico-card">
+                                <h2>Ranking de Artilheiros</h2>
+                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <div class="grafico-imagem">
+                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                </div>
+                            </section>
+
+                            <section class="grafico-card">
+                                <h2>Ranking de Artilheiros</h2>
+                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <div class="grafico-imagem">
+                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                </div>
+                            </section>
+
+                            <section class="grafico-card">
+                                <h2>Ranking de Artilheiros</h2>
+                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <div class="grafico-imagem">
+                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                </div>
+                            </section>
+
+                            <section class="grafico-card">
+                                <h2>Ranking de Artilheiros</h2>
+                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <div class="grafico-imagem">
+                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                </div>
+                            </section>
+
+                            <section class="grafico-card">
+                                <h2>Ranking de Artilheiros</h2>
+                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <div class="grafico-imagem">
+                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                </div>
+                            </section>
+
+                            <section class="grafico-card">
+                                <h2>Ranking de Artilheiros</h2>
+                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <div class="grafico-imagem">
+                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                </div>
+                            </section>
+
+                            <section class="grafico-card">
+                                <h2>Ranking de Artilheiros</h2>
+                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <div class="grafico-imagem">
+                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                </div>
+                            </section>
                         </main>
                     </div>
                 </body>
