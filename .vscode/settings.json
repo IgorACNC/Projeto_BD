@@ -1,10 +1,10 @@
 {
     "java.project.sourcePaths": [
-        "src"
+        "backend-java/src"
     ],
-    "java.project.outputPath": "bin",
+    "java.project.outputPath": "backend-java/bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "backend-java/lib/**/*.jar"
     ],
     "java.compile.nullAnalysis.mode": "automatic",
     "java.configuration.updateBuildConfiguration": "automatic"
