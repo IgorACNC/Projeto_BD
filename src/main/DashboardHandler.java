@@ -65,58 +65,58 @@ public class DashboardHandler implements HttpHandler {
                         
                         <main class="grid-graficos">
                             <section class="grafico-card">
-                                <h2>Estatísticas por Posição de Jogador</h2>
-                                <p>Análise da distribuição e performance média dos jogadores, agrupados por sua posição em campo.</p>
+                                <h2>Média de cartões por jogo dos árbitros do Brasileirão</h2>
+                                <p>O histograma mostra a distribuição da média de cartões aplicados por jogo no Campeonato Brasileiro, indicando que a maioria dos árbitros tem média entre 2,2 e 2,4 cartões. Isso revela um padrão disciplinar consistente, permitindo identificar árbitros mais rigorosos ou permissivos e auxiliando em análises de desempenho e estilo de jogo.</p>
                                 <div class="grafico-imagem">
                                     <img src="/public/images/figura1.png" alt="Gráfico de estatísticas por posição">
                                 </div>
                             </section>
 
                             <section class="grafico-card">
-                                <h2>Ranking de Artilheiros</h2>
-                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <h2>Média de faltas por jogo dos árbitros do Brasileirão</h2>
+                                <p>O histograma mostra a média de faltas por jogo no Campeonato Brasileiro, indicando que a maioria dos árbitros marca entre 24 e 28 faltas por partida. Isso revela consistência no critério de marcação e permite identificar perfis mais "fluídos" (menos faltas) ou mais "parados" (mais faltas), oferecendo um panorama do estilo de arbitragem e do impacto nas partidas.</p>
+                                <div class="grafico-imagem">
+                                    <img src="/public/images/figura2.png" alt="Gráfico de artilheiros">
+                                </div>
+                            </section>
+
+                            <section class="grafico-card">
+                                <h2>Quantidade de jogadores por time</h2>
+                                <p>O gráfico mostra o tamanho dos elencos dos times do Campeonato Brasileiro, permitindo comparar estratégias de gestão esportiva. Elencos maiores indicam mais opções para rodízio, lesões e múltiplas competições, enquanto elencos menores refletem uma aposta em grupos mais enxutos e coesos. Assim, o gráfico revela diferentes filosofias de planejamento que influenciam o desempenho dos clubes na temporada.</p>
                                 <div class="grafico-imagem">
                                     <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
                                 </div>
                             </section>
 
                             <section class="grafico-card">
-                                <h2>Ranking de Artilheiros</h2>
-                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <h2>Quantidade de sócios torcedores adimplentes por time</h2>
+                                <p>O gráfico mostra o número de sócios-torcedores adimplentes dos clubes brasileiros, evidenciando o engajamento e a força financeira das torcidas. Clubes como Palmeiras e Flamengo lideram, indicando maior receita recorrente e capacidade de investimento. A variação entre os times revela diferenças no engajamento e nas estratégias de marketing e fidelização, refletindo o poder de mobilização e a estabilidade financeira de cada clube.</p>
                                 <div class="grafico-imagem">
-                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                    <img src="/public/images/figura4.png" alt="Gráfico de artilheiros">
                                 </div>
                             </section>
 
                             <section class="grafico-card">
-                                <h2>Ranking de Artilheiros</h2>
-                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <h2>Porcentagem dos jogadores com os pés dominantes</h2>
+                                <p>O gráfico mostra a proporção de jogadores destros (75,5%) e canhotos (24,5%) no futebol brasileiro, confirmando a predominância global de destros. Essa diferença tem impacto tático, pois canhotos podem oferecer vantagens estratégicas em posições específicas e tendem a ser mais valorizados por sua raridade. A análise ajuda a compreender o perfil técnico dos atletas e pode apoiar estudos sobre a relação entre pé dominante e desempenho em campo.</p>
                                 <div class="grafico-imagem">
-                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                    <img src="/public/images/figura5.png" alt="Gráfico de artilheiros">
                                 </div>
                             </section>
 
                             <section class="grafico-card">
-                                <h2>Ranking de Artilheiros</h2>
-                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <h2> Estádios do futebol brasileiro de maior capacidade</h2>
+                                <p>O gráfico mostra a relação entre os estádios brasileiros e suas capacidades, com tendência linear (y = 3,94595 + 2,37044x) indicando crescimento gradual. As capacidades variam de cerca de 10 mil a 80 mil lugares, refletindo diversidade na infraestrutura. Estádios maiores, como Maracanã e Mineirão, geram mais receita e são ideais para grandes jogos, enquanto a maioria se concentra em faixas intermediárias. A análise ajuda gestores a planejar preços, eventos e estratégias de aumento de receita com base na capacidade dos estádios.</p>
                                 <div class="grafico-imagem">
-                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                    <img src="/public/images/figura6.png" alt="Gráfico de artilheiros">
                                 </div>
                             </section>
 
                             <section class="grafico-card">
-                                <h2>Ranking de Artilheiros</h2>
-                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
+                                <h2>Quantidade de gols de cabeça por altura</h2>
+                                <p>O gráfico mostra a relação entre a altura dos jogadores e o número de gols de cabeça, com tendência crescente (y = −12,44924 + 7,36287x), mas correlação fraca devido à dispersão dos pontos. Isso indica que a altura não é o principal fator para marcar gols de cabeça. Aspectos como posicionamento, impulsão, timing e técnica têm maior influência. Assim, a altura pode ser uma vantagem, mas o sucesso no jogo aéreo depende principalmente das habilidades técnicas do jogador.</p>
                                 <div class="grafico-imagem">
-                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
-                                </div>
-                            </section>
-
-                            <section class="grafico-card">
-                                <h2>Ranking de Artilheiros</h2>
-                                <p>Este gráfico mostra os 10 maiores artilheiros do campeonato, destacando os jogadores com mais gols.</p>
-                                <div class="grafico-imagem">
-                                    <img src="/public/images/figura3.png" alt="Gráfico de artilheiros">
+                                    <img src="/public/images/figura7.png" alt="Gráfico de artilheiros">
                                 </div>
                             </section>
 
