@@ -1,0 +1,14 @@
+.jogador-form input {
+    width: 95%; padding: 10px; margin-bottom: 10px; 
+    border: 1px solid #ccc; border-radius: 4px; 
+}
+.form-actions { 
+    display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; 
+}
+.form-actions button { 
+    padding: 10px 20px; border-radius: 5px; 
+    border: 1px solid #ccc; cursor: pointer; 
+}
+.form-actions button[type="submit"] { 
+    background-color: var(--primary-color); color: white; border-color: var(--primary-color); 
+}

@@ -1,0 +1,43 @@
+/* Em: brasileirao-front/src/pages/Relatorios.css */
+
+.relatorios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.report-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-family: inherit; /* Garante que o botão use a fonte da página */
+}
+
+.report-card:hover, .report-card:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    outline: none;
+}
+
+.report-card strong { 
+    display: block; 
+    font-size: 18px; 
+    color: var(--text-primary); 
+    margin-bottom: 5px; 
+}
+
+.report-card span { 
+    font-size: 14px; 
+    color: var(--text-secondary); 
+}
+
+.report-view {
+    margin-top: 40px;
+    border-radius: 8px;
+    overflow: hidden; /* Garante que a borda arredondada seja aplicada na tabela */
+}

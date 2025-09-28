@@ -1,0 +1,9 @@
+.grid-graficos { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grafico-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+.grafico-card h2 { margin-top: 0; }
+.grafico-card img { width: 100%; height: auto; border-radius: 6px; }

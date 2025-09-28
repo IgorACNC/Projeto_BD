@@ -1,0 +1,17 @@
+.dashboard-header { margin-bottom: 30px; }
+.dashboard-header h1 { font-size: 28px; color: var(--text-primary); margin: 0; }
+.dashboard-header p { font-size: 16px; color: var(--text-secondary); margin-top: 5px; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.stat-card {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.stat-icon { font-size: 32px; }
+.stat-info { display: flex; flex-direction: column; }
+.stat-value { font-size: 24px; font-weight: 700; color: var(--text-primary); }
+.stat-label { font-size: 14px; color: var(--text-secondary); }
