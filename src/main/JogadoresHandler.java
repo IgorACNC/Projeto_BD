@@ -80,7 +80,7 @@ public class JogadoresHandler implements HttpHandler {
 
         html.append("<table>");
         html.append(
-                "<tr><th>ID</th><th>Nome</th><th>Posição</th><th>Número</th><th>Gols</th><th>Assistências</th><th>Time</th><th>Ações</th></tr>");
+                "<tr><th>ID</th><th>Nome</th><th>Idade</th><th>Altura</th><th>Número</th><th>Times jogados</th><th>Gols</th><th>Pé dominante</th><th>Gols Penalti</th><th>Gols cabeça</th><th>Peso</th><th>Posição</th><th>Nacionalidade</th><th>Assistências</th><th>Time</th><th>Ações</th></tr>");
 
         for (Jogador jogador : jogadores) {
             String timeNome = getTimeNome(times, jogador.getFk_time());
@@ -88,9 +88,17 @@ public class JogadoresHandler implements HttpHandler {
             html.append("<tr>");
             html.append("<td>").append(jogador.getId_jogador()).append("</td>");
             html.append("<td>").append(jogador.getNome()).append("</td>");
-            html.append("<td>").append(jogador.getPosicao_jogador()).append("</td>");
+            html.append("<td>").append(jogador.getIdade()).append("</td>");
+            html.append("<td>").append(jogador.getAltura()).append("</td>");
             html.append("<td>").append(jogador.getNumero_camisa()).append("</td>");
+            html.append("<td>").append(jogador.getQuant_times_jogados()).append("</td>");
             html.append("<td>").append(jogador.getGols_temporada_jogador()).append("</td>");
+            html.append("<td>").append(jogador.getPe_dominante()).append("</td>");
+            html.append("<td>").append(jogador.getGols_penalti()).append("</td>");
+            html.append("<td>").append(jogador.getGols_cabeca()).append("</td>");
+            html.append("<td>").append(jogador.getPeso()).append("</td>");
+            html.append("<td>").append(jogador.getPosicao_jogador()).append("</td>");
+            html.append("<td>").append(jogador.getNacionalidade()).append("</td>");
             html.append("<td>").append(jogador.getAssistencias()).append("</td>");
             html.append("<td>").append(timeNome).append("</td>");
             html.append("<td>");
