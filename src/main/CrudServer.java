@@ -86,7 +86,7 @@ static class HomeHandler implements HttpHandler {
                     <div class="container">
                         <header>
                             <h1>Sistema de Gerenciamento</h1>
-                            <p>Brasileirão Série A</p>
+                            <p>Futebol Brasileiro 2025</p>
                         </header>
 
                         <nav class="menu-principal">
@@ -446,7 +446,6 @@ static class RelatoriosHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         try {
-            // Pega o parametro 'type' da URL, ex: /relatorios?type=times_estatisticas
             String query = exchange.getRequestURI().getQuery();
             Map<String, String> params = new HashMap<>();
             if (query != null) {
@@ -464,9 +463,8 @@ static class RelatoriosHandler implements HttpHandler {
             RelatorioDAO dao = new RelatorioDAO();
             List<String[]> dadosRelatorio;
             String titulo = "";
-            String[] cabecalhos = {}; // Array para guardar os nomes das colunas
+            String[] cabecalhos = {}; 
 
-            // Decide qual metodo do DAO chamar com base no parametro
             switch (relatorioType) {
                 case "times_estatisticas":
                     titulo = "Relatorio: Times com Estatisticas";
@@ -478,25 +476,23 @@ static class RelatoriosHandler implements HttpHandler {
                     cabecalhos = new String[]{"Posicao", "Total de Jogadores", "Idade Media", "Altura Media", "Total de Gols", "Total de Assistencias"};
                     dadosRelatorio = dao.relatorioEstatisticasPorPosicao();
                     break;
-                // --- NOVO RELATORIO 1 ---
+        
                 case "times_estadios":
                     titulo = "Relatorio: Times e seus Estadios";
                     cabecalhos = new String[]{"Time", "Estadio", "Capacidade", "Bairro", "Endereco", "Presidente"};
                     dadosRelatorio = dao.relatorioTimesComEstadios();
                     break;
-                // --- NOVO RELATORIO 2 ---
+                
                 case "tecnicos_experiencia":
                     titulo = "Relatorio: Tecnicos por Experiencia";
                     cabecalhos = new String[]{"Tecnico", "Idade", "Times Treinados", "Time Atual", "Presidente"};
                     dadosRelatorio = dao.relatorioTecnicosExperiencia();
                     break;
                 default:
-                    // Se nenhum tipo for especificado, mostre a pagina de menu
                     mostrarMenuRelatorios(exchange);
                     return;
             }
 
-            // Monta o HTML com os dados do relatorio
             StringBuilder html = new StringBuilder();
             html.append("<html><head><title>").append(titulo).append("</title>");
             html.append("<style>body{font-family:Arial,sans-serif;margin:20px; background-color:#f5f5f5;} .container{max-width:1100px; margin:0 auto; background:white; padding:20px; border-radius:8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);} h1{color:#2c3e50;} table{border-collapse:collapse;width:100%;} th,td{border:1px solid #ddd;padding:8px;} th{background-color:#f2f2f2;} .btn{display:inline-block;padding:10px 20px;margin-top:20px;text-decoration:none;border-radius:5px;color:white;} .btn-primary{background:#3498db;}</style>");
@@ -545,7 +541,6 @@ static class RelatoriosHandler implements HttpHandler {
         }
     }
 
-    // Este metodo substitui o antigo para incluir os novos links
     private void mostrarMenuRelatorios(HttpExchange exchange) throws IOException {
         String menuHtml = "<html>" +
             "<head>" +
