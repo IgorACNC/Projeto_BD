@@ -54,17 +54,37 @@ static class HomeHandler implements HttpHandler {
         JogadorDAO jogadorDAO = new JogadorDAO();
         TecnicoDAO tecnicoDAO = new TecnicoDAO();
         EstadioDAO estadioDAO = new EstadioDAO();
+        PresidenteDAO presidenteDAO = new PresidenteDAO();
 
         int totalTimes = 0;
         int totalJogadores = 0;
         int totalTecnicos = 0;
         int totalEstadios = 0;
+        int totalPresidentes = 0;
+        String artilheiroNome = "N/A";
+        int artilheiroGols = 0;
+        List<Jogador> jogadoresRecentes = new ArrayList<>();
+        List<Time> timesRecentes = new ArrayList<>();
 
         try {
             totalTimes = timeDAO.listar().size();
             totalJogadores = jogadorDAO.listar().size();
             totalTecnicos = tecnicoDAO.listar().size();
             totalEstadios = estadioDAO.listar().size();
+            totalPresidentes = presidenteDAO.listar().size();
+
+            List<String[]> artilheiros = jogadorDAO.buscarArtilheiros();
+            if (!artilheiros.isEmpty()) {
+                artilheiroNome = artilheiros.get(0)[0];
+                artilheiroGols = Integer.parseInt(artilheiros.get(0)[1]);
+            }
+
+            List<Jogador> todosJogadores = jogadorDAO.listar();
+            jogadoresRecentes = todosJogadores.subList(0, Math.min(2, todosJogadores.size()));
+
+            List<Time> todosTimes = timeDAO.listar();
+            timesRecentes = todosTimes.subList(0, Math.min(1, todosTimes.size()));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -75,222 +95,412 @@ static class HomeHandler implements HttpHandler {
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Brasileirão Série A - Dashboard</title>
+                    <title>Dashboard Brasileirão</title>
                     <style>
                         * { margin: 0; padding: 0; box-sizing: border-box; }
                         body {
                             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                            color: #333;
+                            background: #f5f7fa;
+                            display: flex;
                             min-height: 100vh;
-                            padding: 20px;
                         }
-                        .container {
-                            max-width: 1400px;
-                            margin: 0 auto;
-                        }
-                        header {
-                            text-align: center;
-                            margin-bottom: 50px;
-                            padding-top: 30px;
-                        }
-                        header h1 {
-                            font-size: 3em;
+
+                        .sidebar {
+                            width: 250px;
+                            background: linear-gradient(180deg, #16a34a 0%, #15803d 100%);
                             color: white;
-                            margin-bottom: 10px;
-                            font-weight: 700;
-                            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+                            padding: 0;
+                            position: fixed;
+                            height: 100vh;
+                            overflow-y: auto;
                         }
-                        header p {
+
+                        .logo-section {
+                            padding: 30px 20px;
+                            border-bottom: 1px solid rgba(255,255,255,0.1);
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                        }
+
+                        .logo-icon {
+                            width: 48px;
+                            height: 48px;
+                            background: #fbbf24;
+                            border-radius: 8px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 28px;
+                        }
+
+                        .logo-text h2 {
                             font-size: 1.2em;
-                            color: rgba(255,255,255,0.9);
-                            font-weight: 400;
+                            font-weight: 700;
+                            margin-bottom: 2px;
                         }
+
+                        .logo-text p {
+                            font-size: 0.75em;
+                            opacity: 0.9;
+                        }
+
+                        .nav-section {
+                            padding: 20px 0;
+                        }
+
+                        .nav-title {
+                            padding: 10px 20px;
+                            font-size: 0.7em;
+                            text-transform: uppercase;
+                            letter-spacing: 1px;
+                            opacity: 0.7;
+                            font-weight: 600;
+                        }
+
+                        .nav-item {
+                            padding: 12px 20px;
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            color: white;
+                            text-decoration: none;
+                            transition: background 0.2s;
+                            cursor: pointer;
+                        }
+
+                        .nav-item:hover {
+                            background: rgba(255,255,255,0.1);
+                        }
+
+                        .nav-item.active {
+                            background: rgba(251, 191, 36, 0.2);
+                            border-left: 3px solid #fbbf24;
+                        }
+
+                        .nav-icon {
+                            font-size: 18px;
+                            width: 20px;
+                            text-align: center;
+                        }
+
+                        .main-content {
+                            margin-left: 250px;
+                            flex: 1;
+                            padding: 40px;
+                        }
+
+                        .header {
+                            margin-bottom: 40px;
+                        }
+
+                        .header h1 {
+                            font-size: 2.2em;
+                            color: #1e293b;
+                            margin-bottom: 8px;
+                        }
+
+                        .header h1 span {
+                            color: #16a34a;
+                        }
+
+                        .header p {
+                            color: #64748b;
+                            font-size: 1em;
+                        }
+
                         .stats-grid {
                             display: grid;
                             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                            gap: 25px;
+                            gap: 20px;
                             margin-bottom: 40px;
                         }
+
                         .stat-card {
                             background: white;
-                            border-radius: 16px;
-                            padding: 30px;
-                            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-                            transition: transform 0.3s ease, box-shadow 0.3s ease;
-                            position: relative;
-                            overflow: hidden;
+                            border-radius: 12px;
+                            padding: 24px;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                            transition: transform 0.2s, box-shadow 0.2s;
                         }
-                        .stat-card::before {
-                            content: '';
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 4px;
-                            background: linear-gradient(90deg, #667eea, #764ba2);
-                        }
+
                         .stat-card:hover {
-                            transform: translateY(-8px);
-                            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+                            transform: translateY(-4px);
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
                         }
+
+                        .stat-info h3 {
+                            font-size: 0.85em;
+                            color: #64748b;
+                            font-weight: 600;
+                            margin-bottom: 8px;
+                        }
+
+                        .stat-info .number {
+                            font-size: 2.5em;
+                            font-weight: 700;
+                            color: #1e293b;
+                            line-height: 1;
+                        }
+
+                        .stat-info .subtitle {
+                            font-size: 0.85em;
+                            color: #94a3b8;
+                            margin-top: 4px;
+                        }
+
                         .stat-icon {
-                            width: 60px;
-                            height: 60px;
+                            width: 64px;
+                            height: 64px;
                             border-radius: 12px;
                             display: flex;
                             align-items: center;
                             justify-content: center;
                             font-size: 28px;
-                            margin-bottom: 20px;
-                        }
-                        .stat-card.times .stat-icon { background: linear-gradient(135deg, #667eea, #764ba2); }
-                        .stat-card.jogadores .stat-icon { background: linear-gradient(135deg, #f093fb, #f5576c); }
-                        .stat-card.tecnicos .stat-icon { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-                        .stat-card.estadios .stat-icon { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-
-                        .stat-label {
-                            font-size: 0.95em;
-                            color: #7f8c8d;
-                            text-transform: uppercase;
-                            letter-spacing: 1px;
-                            font-weight: 600;
-                            margin-bottom: 8px;
-                        }
-                        .stat-value {
-                            font-size: 3em;
-                            font-weight: 700;
-                            color: #2c3e50;
-                            line-height: 1;
                         }
 
-                        .actions-section {
+                        .stat-card.green .stat-icon { background: linear-gradient(135deg, #16a34a, #22c55e); }
+                        .stat-card.blue .stat-icon { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+                        .stat-card.purple .stat-icon { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+                        .stat-card.orange .stat-icon { background: linear-gradient(135deg, #f97316, #fb923c); }
+                        .stat-card.yellow .stat-icon { background: linear-gradient(135deg, #eab308, #facc15); }
+                        .stat-card.red .stat-icon { background: linear-gradient(135deg, #ef4444, #f87171); }
+
+                        .activity-section {
                             background: white;
-                            border-radius: 16px;
-                            padding: 40px;
-                            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-                        }
-                        .actions-section h2 {
-                            font-size: 1.8em;
-                            color: #2c3e50;
-                            margin-bottom: 30px;
-                            text-align: center;
-                        }
-                        .actions-grid {
-                            display: grid;
-                            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                            gap: 20px;
-                        }
-                        .action-card {
-                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                            color: white;
-                            padding: 30px;
                             border-radius: 12px;
-                            text-decoration: none;
+                            padding: 30px;
+                            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                        }
+
+                        .activity-section h2 {
+                            font-size: 1.4em;
+                            color: #1e293b;
+                            margin-bottom: 25px;
+                            font-weight: 700;
+                        }
+
+                        .activity-item {
                             display: flex;
-                            flex-direction: column;
+                            align-items: center;
+                            gap: 16px;
+                            padding: 16px 0;
+                            border-bottom: 1px solid #f1f5f9;
+                        }
+
+                        .activity-item:last-child {
+                            border-bottom: none;
+                        }
+
+                        .activity-icon {
+                            width: 48px;
+                            height: 48px;
+                            border-radius: 50%;
+                            display: flex;
                             align-items: center;
                             justify-content: center;
-                            text-align: center;
-                            transition: transform 0.3s ease, box-shadow 0.3s ease;
-                            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                            font-size: 20px;
+                            flex-shrink: 0;
                         }
-                        .action-card:hover {
-                            transform: translateY(-5px);
-                            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-                        }
-                        .action-card.times { background: linear-gradient(135deg, #667eea, #764ba2); }
-                        .action-card.jogadores { background: linear-gradient(135deg, #f093fb, #f5576c); }
-                        .action-card.relatorios { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-                        .action-card.graficos { background: linear-gradient(135deg, #43e97b, #38f9d7); }
 
-                        .action-icon {
-                            font-size: 48px;
-                            margin-bottom: 15px;
+                        .activity-icon.jogador {
+                            background: #dbeafe;
+                            color: #3b82f6;
                         }
-                        .action-title {
-                            font-size: 1.3em;
-                            font-weight: 700;
-                            margin-bottom: 8px;
+
+                        .activity-icon.time {
+                            background: #dcfce7;
+                            color: #16a34a;
                         }
-                        .action-description {
-                            font-size: 0.9em;
-                            opacity: 0.9;
-                            line-height: 1.5;
+
+                        .activity-info {
+                            flex: 1;
+                        }
+
+                        .activity-info h4 {
+                            font-size: 1em;
+                            color: #1e293b;
+                            margin-bottom: 4px;
+                            font-weight: 600;
+                        }
+
+                        .activity-badge {
+                            display: inline-block;
+                            padding: 4px 12px;
+                            border-radius: 12px;
+                            font-size: 0.75em;
+                            font-weight: 600;
+                        }
+
+                        .activity-badge.jogador {
+                            background: #dbeafe;
+                            color: #2563eb;
+                        }
+
+                        .activity-badge.time {
+                            background: #dcfce7;
+                            color: #16a34a;
+                        }
+
+                        .activity-date {
+                            font-size: 0.85em;
+                            color: #94a3b8;
                         }
 
                         @media (max-width: 768px) {
-                            header h1 { font-size: 2em; }
+                            .sidebar { display: none; }
+                            .main-content { margin-left: 0; padding: 20px; }
                             .stats-grid { grid-template-columns: 1fr; }
-                            .actions-grid { grid-template-columns: 1fr; }
-                            .stat-value { font-size: 2.5em; }
                         }
                     </style>
                 </head>
                 <body>
-                    <div class="container">
-                        <header>
-                            <h1>Brasileirão Série A</h1>
-                            <p>Sistema de Gerenciamento - 2025</p>
-                        </header>
-
-                        <div class="stats-grid">
-                            <div class="stat-card times">
-                                <div class="stat-icon">⚽</div>
-                                <div class="stat-label">Times</div>
-                                <div class="stat-value">""" + totalTimes + """
-</div>
-                            </div>
-
-                            <div class="stat-card jogadores">
-                                <div class="stat-icon">👤</div>
-                                <div class="stat-label">Jogadores</div>
-                                <div class="stat-value">""" + totalJogadores + """
-</div>
-                            </div>
-
-                            <div class="stat-card tecnicos">
-                                <div class="stat-icon">📋</div>
-                                <div class="stat-label">Técnicos</div>
-                                <div class="stat-value">""" + totalTecnicos + """
-</div>
-                            </div>
-
-                            <div class="stat-card estadios">
-                                <div class="stat-icon">🏟️</div>
-                                <div class="stat-label">Estádios</div>
-                                <div class="stat-value">""" + totalEstadios + """
-</div>
+                    <div class="sidebar">
+                        <div class="logo-section">
+                            <div class="logo-icon">🏆</div>
+                            <div class="logo-text">
+                                <h2>Brasileirão</h2>
+                                <p>Sistema de Gestão</p>
                             </div>
                         </div>
 
-                        <div class="actions-section">
-                            <h2>Ações Rápidas</h2>
-                            <div class="actions-grid">
-                                <a href="/times" class="action-card times">
-                                    <div class="action-icon">⚽</div>
-                                    <div class="action-title">Gerenciar Times</div>
-                                    <div class="action-description">Visualizar, adicionar e editar times do campeonato</div>
-                                </a>
+                        <nav class="nav-section">
+                            <div class="nav-title">NAVEGAÇÃO PRINCIPAL</div>
+                            <a href="/" class="nav-item active">
+                                <span class="nav-icon">🏠</span>
+                                <span>Dashboard</span>
+                            </a>
+                            <a href="/times" class="nav-item">
+                                <span class="nav-icon">⚽</span>
+                                <span>Times</span>
+                            </a>
+                            <a href="/jogadores" class="nav-item">
+                                <span class="nav-icon">👤</span>
+                                <span>Jogadores</span>
+                            </a>
+                            <a href="/times" class="nav-item">
+                                <span class="nav-icon">📋</span>
+                                <span>Técnicos</span>
+                            </a>
+                            <a href="/times" class="nav-item">
+                                <span class="nav-icon">🏟️</span>
+                                <span>Estádios</span>
+                            </a>
+                            <a href="/times" class="nav-item">
+                                <span class="nav-icon">👑</span>
+                                <span>Presidentes</span>
+                            </a>
+                            <a href="/relatorios" class="nav-item">
+                                <span class="nav-icon">📊</span>
+                                <span>Relatórios</span>
+                            </a>
+                        </nav>
+                    </div>
 
-                                <a href="/jogadores" class="action-card jogadores">
-                                    <div class="action-icon">👥</div>
-                                    <div class="action-title">Gerenciar Jogadores</div>
-                                    <div class="action-description">Controlar elencos e estatísticas dos atletas</div>
-                                </a>
+                    <div class="main-content">
+                        <div class="header">
+                            <h1>Dashboard <span>Brasileirão</span></h1>
+                            <p>Visão geral do sistema de gestão do campeonato</p>
+                        </div>
 
-                                <a href="/relatorios" class="action-card relatorios">
-                                    <div class="action-icon">📊</div>
-                                    <div class="action-title">Relatórios</div>
-                                    <div class="action-description">Acessar análises e dados detalhados</div>
-                                </a>
-
-                                <a href="/dashboard" class="action-card graficos">
-                                    <div class="action-icon">📈</div>
-                                    <div class="action-title">Dashboard Gráfico</div>
-                                    <div class="action-description">Visualizar gráficos e estatísticas visuais</div>
-                                </a>
+                        <div class="stats-grid">
+                            <div class="stat-card green">
+                                <div class="stat-info">
+                                    <h3>Times Cadastrados</h3>
+                                    <div class="number">""" + totalTimes + """
+</div>
+                                    <div class="subtitle">Clubes da Série A</div>
+                                </div>
+                                <div class="stat-icon">🏆</div>
                             </div>
+
+                            <div class="stat-card blue">
+                                <div class="stat-info">
+                                    <h3>Jogadores Ativos</h3>
+                                    <div class="number">""" + totalJogadores + """
+</div>
+                                    <div class="subtitle">Atletas profissionais</div>
+                                </div>
+                                <div class="stat-icon">👥</div>
+                            </div>
+
+                            <div class="stat-card purple">
+                                <div class="stat-info">
+                                    <h3>Técnicos</h3>
+                                    <div class="number">""" + totalTecnicos + """
+</div>
+                                    <div class="subtitle">Treinadores cadastrados</div>
+                                </div>
+                                <div class="stat-icon">📋</div>
+                            </div>
+
+                            <div class="stat-card orange">
+                                <div class="stat-info">
+                                    <h3>Estádios</h3>
+                                    <div class="number">""" + totalEstadios + """
+</div>
+                                    <div class="subtitle">Arenas e estádios</div>
+                                </div>
+                                <div class="stat-icon">🏟️</div>
+                            </div>
+
+                            <div class="stat-card yellow">
+                                <div class="stat-info">
+                                    <h3>Presidentes</h3>
+                                    <div class="number">""" + totalPresidentes + """
+</div>
+                                    <div class="subtitle">Dirigentes ativos</div>
+                                </div>
+                                <div class="stat-icon">👑</div>
+                            </div>
+
+                            <div class="stat-card red">
+                                <div class="stat-info">
+                                    <h3>Artilheiro</h3>
+                                    <div class="number">""" + artilheiroGols + """ gols</div>
+                                    <div class="subtitle">""" + artilheiroNome + """
+</div>
+                                </div>
+                                <div class="stat-icon">🎯</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-section">
+                            <h2>Atividade Recente</h2>
+                            """;
+
+        for (Jogador j : jogadoresRecentes) {
+            html += """
+                            <div class="activity-item">
+                                <div class="activity-icon jogador">👤</div>
+                                <div class="activity-info">
+                                    <h4>""" + j.getNome() + """
+</h4>
+                                    <span class="activity-badge jogador">Jogador</span>
+                                    <span class="activity-date">26/09/2025 às 12:25</span>
+                                </div>
+                            </div>
+                            """;
+        }
+
+        for (Time t : timesRecentes) {
+            html += """
+                            <div class="activity-item">
+                                <div class="activity-icon time">⚽</div>
+                                <div class="activity-info">
+                                    <h4>""" + t.getNome() + """
+</h4>
+                                    <span class="activity-badge time">Time</span>
+                                    <span class="activity-date">26/09/2025 às 12:25</span>
+                                </div>
+                            </div>
+                            """;
+        }
+
+        html += """
                         </div>
                     </div>
                 </body>
