@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.ArrayList;
 import dao.TimeDAO;
 import dao.JogadorDAO;
 import dao.TecnicoDAO;
@@ -460,7 +460,7 @@ static class HomeHandler implements HttpHandler {
                             <div class="stat-card red">
                                 <div class="stat-info">
                                     <h3>Artilheiro</h3>
-                                    <div class="number">""" + artilheiroGols + """ gols</div>
+                                    <div class="number">""" + artilheiroGols + """
                                     <div class="subtitle">""" + artilheiroNome + """
 </div>
                                 </div>
