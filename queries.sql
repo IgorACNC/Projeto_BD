@@ -93,6 +93,8 @@ FROM Time t
 ORDER BY t.nome;
 
 -- relatorio dos jogadores
+-- Esta visão é criada para fornecer um relatório completo sobre os jogadores. Ela desnormaliza os dados ao juntar
+-- informações de desempenho do Jogador, seu Time atual, o Tecnico que o comanda e o Presidente do clube.
 CREATE VIEW vw_JogadorDetalhado AS
 SELECT 
     j.nome AS jogador_nome,
@@ -110,6 +112,8 @@ LEFT JOIN Tecnico te ON t.fk_tecnico = te.id_tecnico
 LEFT JOIN Presidente p ON t.fk_presidente = p.id_presidente;
 
 -- infraestrutura dos times
+-- Essa visão consolida as informações de gerenciamento (Presidente, Tecnico) e infraestrutura (Estadio) de cada Time.
+-- ela é fundamental para a área administrativa da aplicação, permitindo gerar relatórios que avaliam o clube como um todo
 CREATE VIEW vw_InfraestruturaTime AS
 SELECT
     t.nome AS time_nome,
