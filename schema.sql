@@ -89,7 +89,8 @@ CREATE TABLE IF NOT EXISTS Participa(
     passes_dados INT NOT NULL DEFAULT 0,
     cartoes_sofridos INT NOT NULL DEFAULT 0,
     fk_jogador INT,
-    FOREIGN KEY (fk_jogador) REFERENCES Jogador(id_jogador) ON UPDATE CASCADE
+    FOREIGN KEY (fk_jogador) REFERENCES Jogador(id_jogador) ON UPDATE CASCADE,
+    FOREIGN KEY (fk_partida) REFERENCES Partida(id_partida) ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Arbitro(
