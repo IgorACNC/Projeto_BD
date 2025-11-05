@@ -971,8 +971,9 @@ static class RelatoriosHandler implements HttpHandler {
                         // --- NOVOS LINKS ADICIONADOS AQUI ---
                         "<a href='/relatorios?type=times_estadios' class='btn'>Times e seus Estadios</a>" +
                         "<a href='/relatorios?type=tecnicos_experiencia' class='btn'>Tecnicos por Experiencia</a>" +
-                        
+                        "<a href='/dashboard' class='btn'>Gráficos de estatística</a>" +
                         "<a href='/' class='btn btn-secondary' style='margin-top:20px;'>Voltar para Home</a>" +
+                        
                     "</div>" +
                 "</div>" +
             "</body>" +

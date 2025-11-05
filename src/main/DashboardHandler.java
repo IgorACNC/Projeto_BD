@@ -14,7 +14,7 @@ public class DashboardHandler implements HttpHandler {
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Dashboard de Analytics</title>
+                    <title>Dashboard de Análises</title>
                     <style>
                         body { 
                             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -37,7 +37,7 @@ public class DashboardHandler implements HttpHandler {
                         }
                         .btn-voltar {
                             display: inline-block; padding: 10px 25px; margin-bottom: 20px;
-                            background-color: #7f8c8d; color: white; text-decoration: none;
+                            background-color: #3b82f6; color: white; text-decoration: none;
                             border-radius: 50px; font-weight: 600;
                         }
                         .grid-graficos {
@@ -58,9 +58,9 @@ public class DashboardHandler implements HttpHandler {
                 </head>
                 <body>
                     <div class="container">
-                        <a href="/" class="btn-voltar">&#8592; Voltar para Home</a>
+                        <a href="/relatorios" class="btn-voltar">&#8592; Voltar para o menu</a>
                         <header>
-                            <h1>Dashboard de Analytics</h1>
+                            <h1>Dashboard de Análises</h1>
                         </header>
                         
                         <main class="grid-graficos">
