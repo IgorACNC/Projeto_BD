@@ -1,4 +1,4 @@
--- Novas Consultas
+-- Novas Consultas - Entrega 4
 
 -- Tecnicos Desempregados (sem time)
 SELECT te.nome as tecnico_nome, te.idade, te.quant_time_treinou
