@@ -22,6 +22,9 @@ import model.Jogador;
 import model.Tecnico;
 import model.Estadio;
 import model.Presidente;
+import main.TecnicosHandler;
+import main.PresidentesHandler;
+import main.EstadiosHandler;
 
 public class CrudServer {
     private static final int PORT = 8080;
@@ -38,7 +41,9 @@ public class CrudServer {
         server.createContext("/relatorios", new RelatoriosHandler());
         server.createContext("/public/", new StaticFileHandler());
         server.createContext("/dashboard", new DashboardHandler());
-        
+        server.createContext("/tecnicos", new TecnicosHandler());
+        server.createContext("/presidentes", new PresidentesHandler());
+        server.createContext("/estadios", new EstadiosHandler());
         server.setExecutor(null);
         server.start();
 
@@ -381,15 +386,15 @@ static class HomeHandler implements HttpHandler {
                                 <span class="nav-icon">👤</span>
                                 <span>Jogadores</span>
                             </a>
-                            <a href="/times" class="nav-item">
+                            <a href="/tecnicos" class="nav-item">
                                 <span class="nav-icon">📋</span>
                                 <span>Técnicos</span>
                             </a>
-                            <a href="/times" class="nav-item">
+                            <a href="/estadios" class="nav-item">
                                 <span class="nav-icon">🏟️</span>
                                 <span>Estádios</span>
                             </a>
-                            <a href="/times" class="nav-item">
+                            <a href="/presidentes" class="nav-item">
                                 <span class="nav-icon">👑</span>
                                 <span>Presidentes</span>
                             </a>
