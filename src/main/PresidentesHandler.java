@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import dao.PresidenteDAO;
 import model.Presidente;
+import main.Template; // Importe a nova classe
 
 public class PresidentesHandler implements HttpHandler {
     @Override
@@ -41,13 +41,10 @@ public class PresidentesHandler implements HttpHandler {
                 }
             }
         } catch (Exception e) {
-            String error = "<html><body><h1>Erro</h1><p>" + e.getMessage()
-                    + "</p><a href='/presidentes'>← Voltar</a></body></html>";
-            exchange.getResponseHeaders().set("Content-Type", "text/html");
-            exchange.sendResponseHeaders(500, error.getBytes().length);
-            OutputStream os = exchange.getResponseBody();
-            os.write(error.getBytes());
-            os.close();
+            String errorContent = "<h1>Erro Inesperado</h1><p>" + e.getMessage()
+                    + "</p><a href='/presidentes' class='btn btn-primary'>← Voltar</a>";
+            String errorHtml = Template.render("Erro", "presidentes", errorContent);
+            sendResponse(exchange, errorHtml, 500);
         }
     }
 
@@ -55,132 +52,94 @@ public class PresidentesHandler implements HttpHandler {
         PresidenteDAO dao = new PresidenteDAO();
         List<Presidente> presidentes = dao.listar();
 
-        StringBuilder html = new StringBuilder();
-        html.append("<html><head><title>Gerenciar Presidentes</title>");
-        html.append("<style>body{font-family:Arial,sans-serif;margin:20px;}");
-        html.append(
-                "table{border-collapse:collapse;width:100%;margin:20px 0;}th,td{border:1px solid #ddd;padding:8px;text-align:left;}");
-        html.append("th{background-color:#f2f2f2;}");
-        html.append(".btn{padding:8px 15px;margin:5px;text-decoration:none;border-radius:3px;color:white;}");
-        html.append(".btn-primary{background:#3498db;}");
-        html.append(".btn-success{background:#27ae60;}");
-        html.append(".btn-warning{background:#f39c12;}");
-        html.append(".btn-danger{background:#e74c3c;}");
-        html.append("form{background:#f8f9fa;padding:20px;border-radius:5px;margin:20px 0;}");
-        html.append("input,select{padding:8px;margin:5px;border:1px solid #ddd;border-radius:3px;width:200px;}");
-        html.append("</style></head><body>");
-        html.append("<h1>👑 Gerenciar Presidentes</h1>");
-        html.append("<a href='/presidentes/novo' class='btn btn-success'>➕ Novo Presidente</a>");
-        html.append("<a href='/' class='btn btn-primary'>← Voltar</a>");
+        StringBuilder content = new StringBuilder();
+        content.append("<h1>👑 Gerenciar Presidentes</h1>");
+        content.append("<a href='/presidentes/novo' class='btn btn-success'>➕ Novo Presidente</a>");
 
-        html.append("<table>");
-        html.append(
+        content.append("<table>");
+        content.append(
                 "<tr><th>ID</th><th>Nome</th><th>Idade</th><th>Títulos</th><th>Tempo de Cargo (meses)</th><th>Ações</th></tr>");
 
         for (Presidente p : presidentes) {
-            html.append("<tr>");
-            html.append("<td>").append(p.getId_presidente()).append("</td>");
-            html.append("<td>").append(p.getNome()).append("</td>");
-            html.append("<td>").append(p.getIdade()).append("</td>");
-            html.append("<td>").append(p.getQuant_titulo()).append("</td>");
-            html.append("<td>").append(p.getTempo_cargo()).append("</td>");
-            html.append("<td>");
-            html.append("<a href='/presidentes/editar/").append(p.getId_presidente())
+            content.append("<tr>");
+            content.append("<td>").append(p.getId_presidente()).append("</td>");
+            content.append("<td>").append(p.getNome()).append("</td>");
+            content.append("<td>").append(p.getIdade()).append("</td>");
+            content.append("<td>").append(p.getQuant_titulo()).append("</td>");
+            content.append("<td>").append(p.getTempo_cargo()).append("</td>");
+            content.append("<td>");
+            content.append("<a href='/presidentes/editar/").append(p.getId_presidente())
                     .append("' class='btn btn-warning'>Editar</a>");
-            html.append("<form method='POST' action='/presidentes/excluir/").append(p.getId_presidente()).append("' style='display:inline;'>");
-            html.append("<button type='submit' class='btn btn-danger' onclick='return confirm(\"Tem certeza que deseja excluir este presidente?\")'>Excluir</button>");
-            html.append("</form>");
-            html.append("</td>");
-            html.append("</tr>");
+            content.append("<form method='POST' action='/presidentes/excluir/").append(p.getId_presidente())
+                    .append("' style='display:inline;'>");
+            content.append(
+                    "<button type='submit' class='btn btn-danger' onclick='return confirm(\"Tem certeza?\")'>Excluir</button>");
+            content.append("</form>");
+            content.append("</td>");
+            content.append("</tr>");
         }
+        content.append("</table>");
 
-        html.append("</table></body></html>");
-
-        exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
-        exchange.sendResponseHeaders(200, html.toString().getBytes().length);
-        OutputStream os = exchange.getResponseBody();
-        os.write(html.toString().getBytes());
-        os.close();
+        String html = Template.render("Gerenciar Presidentes", "presidentes", content.toString());
+        sendResponse(exchange, html, 200);
     }
 
     private void mostrarFormularioNovoPresidente(HttpExchange exchange) throws IOException {
-        StringBuilder html = new StringBuilder();
-        html.append("<html><head><title>Novo Presidente</title>");
-        html.append("<style>body{font-family:Arial,sans-serif;margin:20px;}");
-        html.append("form{background:#f8f9fa;padding:20px;border-radius:5px;margin:20px 0;}");
-        html.append("input,select{padding:8px;margin:5px;border:1px solid #ddd;border-radius:3px;width:200px;}");
-        html.append(
-                ".btn{padding:8px 15px;margin:5px;text-decoration:none;border-radius:3px;color:white;background:#3498db;}</style></head><body>");
-        html.append("<h1>➕ Novo Presidente</h1>");
-        html.append("<form method='POST' action='/presidentes/criar'>");
-        html.append("<label>Nome do Presidente:</label><br>");
-        html.append("<input type='text' name='nome' required><br><br>");
-        html.append("<label>Idade:</label><br>");
-        html.append("<input type='number' name='idade' min='18' max='99' required><br><br>");
-        html.append("<label>Títulos:</label><br>");
-        html.append("<input type='number' name='quant_titulo' min='0' value='0' required><br><br>");
-        html.append("<label>Tempo de Cargo (meses):</label><br>");
-        html.append("<input type='number' name='tempo_cargo' min='0' value='1' required><br><br>");
-        html.append(
-                "<input type='submit' value='Criar Presidente' style='background:#27ae60;color:white;padding:10px 20px;border:none;border-radius:3px;'>");
-        html.append("<a href='/presidentes' class='btn'>Cancelar</a>");
-        html.append("</form></body></html>");
+        StringBuilder content = new StringBuilder();
+        content.append("<h1>➕ Novo Presidente</h1>");
+        content.append("<form method='POST' action='/presidentes/criar'>");
+        content.append("<label>Nome do Presidente:</label>");
+        content.append("<input type='text' name='nome' required><br><br>");
+        content.append("<label>Idade:</label>");
+        content.append("<input type='number' name='idade' min='18' max='99' required><br><br>");
+        content.append("<label>Títulos:</label>");
+        content.append("<input type='number' name='quant_titulo' min='0' value='0' required><br><br>");
+        content.append("<label>Tempo de Cargo (meses):</label>");
+        content.append("<input type='number' name='tempo_cargo' min='0' value='1' required><br><br>");
+        content.append("<input type='submit' value='Criar Presidente'>");
+        content.append("<a href='/presidentes' class='btn btn-primary'>Cancelar</a>");
+        content.append("</form>");
 
-        exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
-        exchange.sendResponseHeaders(200, html.toString().getBytes().length);
-        OutputStream os = exchange.getResponseBody();
-        os.write(html.toString().getBytes());
-        os.close();
+        String html = Template.render("Novo Presidente", "presidentes", content.toString());
+        sendResponse(exchange, html, 200);
     }
 
     private void mostrarFormularioEditarPresidente(HttpExchange exchange, int id) throws IOException, SQLException {
         PresidenteDAO dao = new PresidenteDAO();
         Presidente p = dao.buscarPorId(id);
         if (p == null) {
-            String error = "<html><body><h1>Presidente não encontrado</h1><a href='/presidentes'>← Voltar</a></body></html>";
-            exchange.getResponseHeaders().set("Content-Type", "text/html");
-            exchange.sendResponseHeaders(404, error.getBytes().length);
-            OutputStream os = exchange.getResponseBody();
-            os.write(error.getBytes());
-            os.close();
+            String errorContent = "<h1>Presidente não encontrado</h1><a href='/presidentes'>← Voltar</a>";
+            String errorHtml = Template.render("Erro", "presidentes", errorContent);
+            sendResponse(exchange, errorHtml, 404);
             return;
         }
 
-        StringBuilder html = new StringBuilder();
-        html.append("<html><head><title>Editar Presidente</title>");
-        html.append("<style>body{font-family:Arial,sans-serif;margin:20px;}");
-        html.append("form{background:#f8f9fa;padding:20px;border-radius:5px;margin:20px 0;}");
-        html.append("input,select{padding:8px;margin:5px;border:1px solid #ddd;border-radius:3px;width:200px;}");
-        html.append(
-                ".btn{padding:8px 15px;margin:5px;text-decoration:none;border-radius:3px;color:white;background:#3498db;}</style></head><body>");
-        html.append("<h1>✏️ Editar Presidente</h1>");
-        html.append("<form method='POST' action='/presidentes/atualizar/").append(id).append("'>");
-        html.append("<label>Nome do Presidente:</label><br>");
-        html.append("<input type='text' name='nome' value='").append(p.getNome()).append("' required><br><br>");
-        html.append("<label>Idade:</label><br>");
-        html.append("<input type='number' name='idade' value='").append(p.getIdade())
+        StringBuilder content = new StringBuilder();
+        content.append("<h1>✏️ Editar Presidente</h1>");
+        content.append("<form method='POST' action='/presidentes/atualizar/").append(id).append("'>");
+        content.append("<label>Nome do Presidente:</label>");
+        content.append("<input type='text' name='nome' value='").append(p.getNome()).append("' required><br><br>");
+        content.append("<label>Idade:</label>");
+        content.append("<input type='number' name='idade' value='").append(p.getIdade())
                 .append("' min='18' max='99' required><br><br>");
-        html.append("<label>Títulos:</label><br>");
-        html.append("<input type='number' name='quant_titulo' value='").append(p.getQuant_titulo())
+        content.append("<label>Títulos:</label>");
+        content.append("<input type='number' name='quant_titulo' value='").append(p.getQuant_titulo())
                 .append("' min='0' required><br><br>");
-        html.append("<label>Tempo de Cargo (meses):</label><br>");
-        html.append("<input type='number' name='tempo_cargo' value='").append(p.getTempo_cargo())
+        content.append("<label>Tempo de Cargo (meses):</label>");
+        content.append("<input type='number' name='tempo_cargo' value='").append(p.getTempo_cargo())
                 .append("' min='0' required><br><br>");
-        html.append(
-                "<input type='submit' value='Atualizar Presidente' style='background:#f39c12;color:white;padding:10px 20px;border:none;border-radius:3px;'>");
-        html.append("<a href='/presidentes' class='btn'>Cancelar</a>");
-        html.append("</form></body></html>");
+        content.append(
+                "<input type='submit' value='Atualizar Presidente' style='background:#f59e0b;'>");
+        content.append("<a href='/presidentes' class='btn btn-primary'>Cancelar</a>");
+        content.append("</form>");
 
-        exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
-        exchange.sendResponseHeaders(200, html.toString().getBytes().length);
-        OutputStream os = exchange.getResponseBody();
-        os.write(html.toString().getBytes());
-        os.close();
+        String html = Template.render("Editar Presidente", "presidentes", content.toString());
+        sendResponse(exchange, html, 200);
     }
 
+    // --- Métodos de Ação (POST) ---
     private void criarPresidente(HttpExchange exchange) throws IOException, SQLException {
         Map<String, String> params = parseFormData(exchange.getRequestBody());
-
         Presidente p = new Presidente();
         p.setNome(params.get("nome"));
         p.setIdade(Integer.parseInt(params.get("idade")));
@@ -189,15 +148,11 @@ public class PresidentesHandler implements HttpHandler {
 
         PresidenteDAO dao = new PresidenteDAO();
         dao.inserir(p);
-
-        exchange.getResponseHeaders().set("Location", "/presidentes");
-        exchange.sendResponseHeaders(302, -1);
-        exchange.close();
+        sendRedirect(exchange, "/presidentes");
     }
 
     private void atualizarPresidente(HttpExchange exchange, int id) throws IOException, SQLException {
         Map<String, String> params = parseFormData(exchange.getRequestBody());
-
         Presidente p = new Presidente();
         p.setId_presidente(id);
         p.setNome(params.get("nome"));
@@ -207,35 +162,43 @@ public class PresidentesHandler implements HttpHandler {
 
         PresidenteDAO dao = new PresidenteDAO();
         dao.atualizar(p);
-
-        exchange.getResponseHeaders().set("Location", "/presidentes");
-        exchange.sendResponseHeaders(302, -1);
-        exchange.close();
+        sendRedirect(exchange, "/presidentes");
     }
 
     private void excluirPresidente(HttpExchange exchange, int id) throws IOException, SQLException {
         PresidenteDAO dao = new PresidenteDAO();
         dao.excluir(id);
-
-        exchange.getResponseHeaders().set("Location", "/presidentes");
-        exchange.sendResponseHeaders(302, -1);
-        exchange.close();
+        sendRedirect(exchange, "/presidentes");
     }
 
+    // --- Métodos Utilitários (Helpers) ---
     private Map<String, String> parseFormData(InputStream inputStream) throws IOException {
         Map<String, String> params = new HashMap<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] pairs = line.split("&");
-            for (String pair : pairs) {
-                String[] keyValue = pair.split("=");
-                if (keyValue.length == 2) {
-                    params.put(URLDecoder.decode(keyValue[0], "UTF-8"),
-                            URLDecoder.decode(keyValue[1], "UTF-8"));
-                }
+        String line = reader.readLine();
+        if (line == null) return params;
+
+        for (String pair : line.split("&")) {
+            String[] keyValue = pair.split("=");
+            if (keyValue.length == 2) {
+                params.put(URLDecoder.decode(keyValue[0], "UTF-8"),
+                        URLDecoder.decode(keyValue[1], "UTF-8"));
             }
         }
         return params;
+    }
+
+    private void sendResponse(HttpExchange exchange, String html, int statusCode) throws IOException {
+        exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
+        exchange.sendResponseHeaders(statusCode, html.getBytes().length);
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(html.getBytes());
+        }
+    }
+
+    private void sendRedirect(HttpExchange exchange, String location) throws IOException {
+        exchange.getResponseHeaders().set("Location", location);
+        exchange.sendResponseHeaders(302, -1);
+        exchange.close();
     }
 }

@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import dao.TecnicoDAO;
 import model.Tecnico;
+import main.Template; // Importe a nova classe
 
 public class TecnicosHandler implements HttpHandler {
     @Override
@@ -41,13 +41,10 @@ public class TecnicosHandler implements HttpHandler {
                 }
             }
         } catch (Exception e) {
-            String error = "<html><body><h1>Erro</h1><p>" + e.getMessage()
-                    + "</p><a href='/tecnicos'>← Voltar</a></body></html>";
-            exchange.getResponseHeaders().set("Content-Type", "text/html");
-            exchange.sendResponseHeaders(500, error.getBytes().length);
-            OutputStream os = exchange.getResponseBody();
-            os.write(error.getBytes());
-            os.close();
+            String errorContent = "<h1>Erro Inesperado</h1><p>" + e.getMessage()
+                    + "</p><a href='/tecnicos' class='btn btn-primary'>← Voltar</a>";
+            String errorHtml = Template.render("Erro", "tecnicos", errorContent);
+            sendResponse(exchange, errorHtml, 500);
         }
     }
 
@@ -55,126 +52,88 @@ public class TecnicosHandler implements HttpHandler {
         TecnicoDAO dao = new TecnicoDAO();
         List<Tecnico> tecnicos = dao.listar();
 
-        StringBuilder html = new StringBuilder();
-        html.append("<html><head><title>Gerenciar Técnicos</title>");
-        html.append("<style>body{font-family:Arial,sans-serif;margin:20px;}");
-        html.append(
-                "table{border-collapse:collapse;width:100%;margin:20px 0;}th,td{border:1px solid #ddd;padding:8px;text-align:left;}");
-        html.append("th{background-color:#f2f2f2;}");
-        html.append(".btn{padding:8px 15px;margin:5px;text-decoration:none;border-radius:3px;color:white;}");
-        html.append(".btn-primary{background:#3498db;}");
-        html.append(".btn-success{background:#27ae60;}");
-        html.append(".btn-warning{background:#f39c12;}");
-        html.append(".btn-danger{background:#e74c3c;}");
-        html.append("form{background:#f8f9fa;padding:20px;border-radius:5px;margin:20px 0;}");
-        html.append("input,select{padding:8px;margin:5px;border:1px solid #ddd;border-radius:3px;width:200px;}");
-        html.append("</style></head><body>");
-        html.append("<h1>📋 Gerenciar Técnicos</h1>");
-        html.append("<a href='/tecnicos/novo' class='btn btn-success'>➕ Novo Técnico</a>");
-        html.append("<a href='/' class='btn btn-primary'>← Voltar</a>");
+        StringBuilder content = new StringBuilder();
+        content.append("<h1>📋 Gerenciar Técnicos</h1>");
+        content.append("<a href='/tecnicos/novo' class='btn btn-success'>➕ Novo Técnico</a>");
 
-        html.append("<table>");
-        html.append(
+        content.append("<table>");
+        content.append(
                 "<tr><th>ID</th><th>Nome</th><th>Idade</th><th>Times Treinados</th><th>Ações</th></tr>");
 
         for (Tecnico tecnico : tecnicos) {
-            html.append("<tr>");
-            html.append("<td>").append(tecnico.getId_tecnico()).append("</td>");
-            html.append("<td>").append(tecnico.getNome()).append("</td>");
-            html.append("<td>").append(tecnico.getIdade()).append("</td>");
-            html.append("<td>").append(tecnico.getQuant_time_treinou()).append("</td>");
-            html.append("<td>");
-            html.append("<a href='/tecnicos/editar/").append(tecnico.getId_tecnico())
+            content.append("<tr>");
+            content.append("<td>").append(tecnico.getId_tecnico()).append("</td>");
+            content.append("<td>").append(tecnico.getNome()).append("</td>");
+            content.append("<td>").append(tecnico.getIdade()).append("</td>");
+            content.append("<td>").append(tecnico.getQuant_time_treinou()).append("</td>");
+            content.append("<td>");
+            content.append("<a href='/tecnicos/editar/").append(tecnico.getId_tecnico())
                     .append("' class='btn btn-warning'>Editar</a>");
-            html.append("<form method='POST' action='/tecnicos/excluir/").append(tecnico.getId_tecnico()).append("' style='display:inline;'>");
-            html.append("<button type='submit' class='btn btn-danger' onclick='return confirm(\"Tem certeza que deseja excluir este técnico?\")'>Excluir</button>");
-            html.append("</form>");
-            html.append("</td>");
-            html.append("</tr>");
+            content.append("<form method='POST' action='/tecnicos/excluir/").append(tecnico.getId_tecnico())
+                    .append("' style='display:inline;'>");
+            content.append(
+                    "<button type='submit' class='btn btn-danger' onclick='return confirm(\"Tem certeza?\")'>Excluir</button>");
+            content.append("</form>");
+            content.append("</td>");
+            content.append("</tr>");
         }
+        content.append("</table>");
 
-        html.append("</table></body></html>");
-
-        exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
-        exchange.sendResponseHeaders(200, html.toString().getBytes().length);
-        OutputStream os = exchange.getResponseBody();
-        os.write(html.toString().getBytes());
-        os.close();
+        String html = Template.render("Gerenciar Técnicos", "tecnicos", content.toString());
+        sendResponse(exchange, html, 200);
     }
 
     private void mostrarFormularioNovoTecnico(HttpExchange exchange) throws IOException, SQLException {
-        StringBuilder html = new StringBuilder();
-        html.append("<html><head><title>Novo Técnico</title>");
-        html.append("<style>body{font-family:Arial,sans-serif;margin:20px;}");
-        html.append("form{background:#f8f9fa;padding:20px;border-radius:5px;margin:20px 0;}");
-        html.append("input,select{padding:8px;margin:5px;border:1px solid #ddd;border-radius:3px;width:200px;}");
-        html.append(
-                ".btn{padding:8px 15px;margin:5px;text-decoration:none;border-radius:3px;color:white;background:#3498db;}</style></head><body>");
-        html.append("<h1>➕ Novo Técnico</h1>");
-        html.append("<form method='POST' action='/tecnicos/criar'>");
-        html.append("<label>Nome do Técnico:</label><br>");
-        html.append("<input type='text' name='nome' required><br><br>");
-        html.append("<label>Idade:</label><br>");
-        html.append("<input type='number' name='idade' min='18' max='80' required><br><br>");
-        html.append("<label>Times Treinados:</label><br>");
-        html.append("<input type='number' name='quant_time_treinou' min='0' value='1' required><br><br>");
-        html.append(
-                "<input type='submit' value='Criar Técnico' style='background:#27ae60;color:white;padding:10px 20px;border:none;border-radius:3px;'>");
-        html.append("<a href='/tecnicos' class='btn'>Cancelar</a>");
-        html.append("</form></body></html>");
+        StringBuilder content = new StringBuilder();
+        content.append("<h1>➕ Novo Técnico</h1>");
+        content.append("<form method='POST' action='/tecnicos/criar'>");
+        content.append("<label>Nome do Técnico:</label>");
+        content.append("<input type='text' name='nome' required><br><br>");
+        content.append("<label>Idade:</label>");
+        content.append("<input type='number' name='idade' min='18' max='80' required><br><br>");
+        content.append("<label>Times Treinados:</label>");
+        content.append("<input type='number' name='quant_time_treinou' min='0' value='1' required><br><br>");
+        content.append("<input type='submit' value='Criar Técnico'>");
+        content.append("<a href='/tecnicos' class='btn btn-primary'>Cancelar</a>");
+        content.append("</form>");
 
-        exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
-        exchange.sendResponseHeaders(200, html.toString().getBytes().length);
-        OutputStream os = exchange.getResponseBody();
-        os.write(html.toString().getBytes());
-        os.close();
+        String html = Template.render("Novo Técnico", "tecnicos", content.toString());
+        sendResponse(exchange, html, 200);
     }
 
     private void mostrarFormularioEditarTecnico(HttpExchange exchange, int id) throws IOException, SQLException {
         TecnicoDAO dao = new TecnicoDAO();
         Tecnico tecnico = dao.buscarPorId(id);
         if (tecnico == null) {
-            String error = "<html><body><h1>Técnico não encontrado</h1><a href='/tecnicos'>← Voltar</a></body></html>";
-            exchange.getResponseHeaders().set("Content-Type", "text/html");
-            exchange.sendResponseHeaders(404, error.getBytes().length);
-            OutputStream os = exchange.getResponseBody();
-            os.write(error.getBytes());
-            os.close();
+            String errorContent = "<h1>Técnico não encontrado</h1><a href='/tecnicos'>← Voltar</a>";
+            String errorHtml = Template.render("Erro", "tecnicos", errorContent);
+            sendResponse(exchange, errorHtml, 404);
             return;
         }
 
-        StringBuilder html = new StringBuilder();
-        html.append("<html><head><title>Editar Técnico</title>");
-        html.append("<style>body{font-family:Arial,sans-serif;margin:20px;}");
-        html.append("form{background:#f8f9fa;padding:20px;border-radius:5px;margin:20px 0;}");
-        html.append("input,select{padding:8px;margin:5px;border:1px solid #ddd;border-radius:3px;width:200px;}");
-        html.append(
-                ".btn{padding:8px 15px;margin:5px;text-decoration:none;border-radius:3px;color:white;background:#3498db;}</style></head><body>");
-        html.append("<h1>✏️ Editar Técnico</h1>");
-        html.append("<form method='POST' action='/tecnicos/atualizar/").append(id).append("'>");
-        html.append("<label>Nome do Técnico:</label><br>");
-        html.append("<input type='text' name='nome' value='").append(tecnico.getNome()).append("' required><br><br>");
-        html.append("<label>Idade:</label><br>");
-        html.append("<input type='number' name='idade' value='").append(tecnico.getIdade())
+        StringBuilder content = new StringBuilder();
+        content.append("<h1>✏️ Editar Técnico</h1>");
+        content.append("<form method='POST' action='/tecnicos/atualizar/").append(id).append("'>");
+        content.append("<label>Nome do Técnico:</label>");
+        content.append("<input type='text' name='nome' value='").append(tecnico.getNome()).append("' required><br><br>");
+        content.append("<label>Idade:</label>");
+        content.append("<input type='number' name='idade' value='").append(tecnico.getIdade())
                 .append("' min='18' max='80' required><br><br>");
-        html.append("<label>Times Treinados:</label><br>");
-        html.append("<input type='number' name='quant_time_treinou' value='").append(tecnico.getQuant_time_treinou())
+        content.append("<label>Times Treinados:</label>");
+        content.append("<input type='number' name='quant_time_treinou' value='").append(tecnico.getQuant_time_treinou())
                 .append("' min='0' required><br><br>");
-        html.append(
-                "<input type='submit' value='Atualizar Técnico' style='background:#f39c12;color:white;padding:10px 20px;border:none;border-radius:3px;'>");
-        html.append("<a href='/tecnicos' class='btn'>Cancelar</a>");
-        html.append("</form></body></html>");
+        content.append(
+                "<input type='submit' value='Atualizar Técnico' style='background:#f59e0b;'>");
+        content.append("<a href='/tecnicos' class='btn btn-primary'>Cancelar</a>");
+        content.append("</form>");
 
-        exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
-        exchange.sendResponseHeaders(200, html.toString().getBytes().length);
-        OutputStream os = exchange.getResponseBody();
-        os.write(html.toString().getBytes());
-        os.close();
+        String html = Template.render("Editar Técnico", "tecnicos", content.toString());
+        sendResponse(exchange, html, 200);
     }
 
+    // --- Métodos de Ação (POST) ---
     private void criarTecnico(HttpExchange exchange) throws IOException, SQLException {
         Map<String, String> params = parseFormData(exchange.getRequestBody());
-
         Tecnico tecnico = new Tecnico();
         tecnico.setNome(params.get("nome"));
         tecnico.setIdade(Integer.parseInt(params.get("idade")));
@@ -182,15 +141,11 @@ public class TecnicosHandler implements HttpHandler {
 
         TecnicoDAO dao = new TecnicoDAO();
         dao.inserir(tecnico);
-
-        exchange.getResponseHeaders().set("Location", "/tecnicos");
-        exchange.sendResponseHeaders(302, -1);
-        exchange.close();
+        sendRedirect(exchange, "/tecnicos");
     }
 
     private void atualizarTecnico(HttpExchange exchange, int id) throws IOException, SQLException {
         Map<String, String> params = parseFormData(exchange.getRequestBody());
-
         Tecnico tecnico = new Tecnico();
         tecnico.setId_tecnico(id);
         tecnico.setNome(params.get("nome"));
@@ -199,35 +154,43 @@ public class TecnicosHandler implements HttpHandler {
 
         TecnicoDAO dao = new TecnicoDAO();
         dao.atualizar(tecnico);
-
-        exchange.getResponseHeaders().set("Location", "/tecnicos");
-        exchange.sendResponseHeaders(302, -1);
-        exchange.close();
+        sendRedirect(exchange, "/tecnicos");
     }
 
     private void excluirTecnico(HttpExchange exchange, int id) throws IOException, SQLException {
         TecnicoDAO dao = new TecnicoDAO();
         dao.excluir(id);
-
-        exchange.getResponseHeaders().set("Location", "/tecnicos");
-        exchange.sendResponseHeaders(302, -1);
-        exchange.close();
+        sendRedirect(exchange, "/tecnicos");
     }
-    
+
+    // --- Métodos Utilitários (Helpers) ---
     private Map<String, String> parseFormData(InputStream inputStream) throws IOException {
         Map<String, String> params = new HashMap<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] pairs = line.split("&");
-            for (String pair : pairs) {
-                String[] keyValue = pair.split("=");
-                if (keyValue.length == 2) {
-                    params.put(URLDecoder.decode(keyValue[0], "UTF-8"),
-                            URLDecoder.decode(keyValue[1], "UTF-8"));
-                }
+        String line = reader.readLine();
+        if (line == null) return params;
+
+        for (String pair : line.split("&")) {
+            String[] keyValue = pair.split("=");
+            if (keyValue.length == 2) {
+                params.put(URLDecoder.decode(keyValue[0], "UTF-8"),
+                        URLDecoder.decode(keyValue[1], "UTF-8"));
             }
         }
         return params;
+    }
+
+    private void sendResponse(HttpExchange exchange, String html, int statusCode) throws IOException {
+        exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
+        exchange.sendResponseHeaders(statusCode, html.getBytes().length);
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(html.getBytes());
+        }
+    }
+
+    private void sendRedirect(HttpExchange exchange, String location) throws IOException {
+        exchange.getResponseHeaders().set("Location", location);
+        exchange.sendResponseHeaders(302, -1);
+        exchange.close();
     }
 }
