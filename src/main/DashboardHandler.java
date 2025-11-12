@@ -10,9 +10,6 @@ public class DashboardHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         
-        // O CSS antigo foi removido, pois agora está no Template.
-        // O CSS específico para esta página foi adicionado ao Template.
-        // Vamos construir apenas o conteúdo.
 
         String content = """
             <style>
