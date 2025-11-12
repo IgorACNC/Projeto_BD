@@ -156,9 +156,6 @@ public class Template {
                 input[type=submit]:hover { background: #15803d; }
                 form .btn { margin-top: 15px; }
 
-                /* ================================================= */
-                /* CORREÇÃO 1: Resetar estilo do form do botão Excluir */
-                /* ================================================= */
                 td form {
                     background: none;
                     padding: 0;
@@ -167,9 +164,6 @@ public class Template {
                     box-shadow: none;
                 }
 
-                /* ================================================= */
-                /* CORREÇÃO 2: Estilos da Home (Dashboard) que faltavam */
-                /* ================================================= */
                 .header { margin-bottom: 40px; }
                 .header h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 8px; }
                 .header p { color: #64748b; font-size: 1em; }
