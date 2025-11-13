@@ -270,12 +270,60 @@ public class Template {
                 .activity-badge.time { background: #dcfce7; color: #16a34a; }
                 .activity-date { font-size: 0.85em; color: #94a3b8; }
 
+                /* CSS para Gráficos */
+                .chart-container {
+                    position: relative;
+                    height: 400px;
+                    margin: 20px 0;
+                }
+                canvas {
+                    max-width: 100%;
+                    height: auto !important;
+                }
+                
+                /* Cards de consultas */
+                .query-card {
+                    background: white;
+                    padding: 24px;
+                    border-radius: 12px;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                    margin-bottom: 20px;
+                    transition: transform 0.2s, box-shadow 0.2s;
+                }
+                .query-card:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                }
+                
+                /* Filtros */
+                .filter-section {
+                    background: white;
+                    padding: 24px;
+                    border-radius: 12px;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                    margin-bottom: 20px;
+                }
+                
+                /* Indicadores visuais */
+                .indicator {
+                    display: inline-block;
+                    padding: 4px 12px;
+                    border-radius: 12px;
+                    font-size: 0.85em;
+                    font-weight: 600;
+                    margin: 2px;
+                }
+                .indicator.success { background: #dcfce7; color: #16a34a; }
+                .indicator.warning { background: #fef3c7; color: #d97706; }
+                .indicator.info { background: #dbeafe; color: #2563eb; }
+                
                 /* Responsividade */
                 @media (max-width: 768px) {
                     .sidebar { display: none; }
                     .main-content { margin-left: 0; padding: 20px; width: 100%; }
                     th, td { padding: 8px; }
                     .stats-grid { grid-template-columns: 1fr; }
+                    .chart-container { height: 300px; }
                 }
             </style>
             """;

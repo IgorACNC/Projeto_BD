@@ -25,7 +25,9 @@ import model.Presidente;
 import main.TecnicosHandler;
 import main.PresidentesHandler;
 import main.EstadiosHandler;
-import main.Template; // Importe a nova classe
+import main.FuncoesProcedimentosHandler;
+import main.ViewsConsultasHandler;
+import main.Template;
 
 public class CrudServer {
     private static final int PORT = 8080;
@@ -45,6 +47,8 @@ public class CrudServer {
         server.createContext("/tecnicos", new TecnicosHandler());
         server.createContext("/presidentes", new PresidentesHandler());
         server.createContext("/estadios", new EstadiosHandler());
+        server.createContext("/funcoes-procedimentos", new FuncoesProcedimentosHandler());
+        server.createContext("/views-consultas", new ViewsConsultasHandler());
         server.setExecutor(null);
         server.start();
 
@@ -213,6 +217,19 @@ public class CrudServer {
                 }
 
                 String relatorioType = params.getOrDefault("type", "");
+                String submenu = params.getOrDefault("submenu", "");
+                
+                // Redirecionar para funções/procedimentos ou views/consultas
+                if ("funcoes".equals(submenu)) {
+                    FuncoesProcedimentosHandler handler = new FuncoesProcedimentosHandler();
+                    handler.handle(exchange);
+                    return;
+                } else if ("consultas".equals(submenu)) {
+                    ViewsConsultasHandler handler = new ViewsConsultasHandler();
+                    handler.handle(exchange);
+                    return;
+                }
+                
                 if (relatorioType.isEmpty()) {
                     mostrarMenuRelatorios(exchange);
                     return;
@@ -285,18 +302,36 @@ public class CrudServer {
         }
 
         private void mostrarMenuRelatorios(HttpExchange exchange) throws IOException {
-            String content = """
-                    <h1>📊 Menu de Relatórios</h1>
-                    <p>Selecione um dos relatórios abaixo para visualizar os dados consolidados.</p>
-                    <div class='menu-relatorios' style='margin-top: 20px;'>
-                        <a href='/relatorios?type=times_estatisticas' class='btn btn-primary' style='display:block; margin-bottom:10px;'>Times com Estatísticas</a>
-                        <a href='/relatorios?type=estatisticas_posicao' class='btn btn-primary' style='display:block; margin-bottom:10px;'>Estatísticas por Posição</a>
-                        <a href='/relatorios?type=times_estadios' class='btn btn-primary' style='display:block; margin-bottom:10px;'>Times e seus Estádios</a>
-                        <a href='/relatorios?type=tecnicos_experiencia' class='btn btn-primary' style='display:block; margin-bottom:10px;'>Técnicos por Experiência</a>
-                        <a href='/dashboard' class='btn btn-success' style='display:block; margin-bottom:10px;'>Gráficos de Estatística (Dashboard)</a>
-                    </div>
-                    """;
-            String html = Template.render("Menu de Relatórios", "relatorios", content);
+            StringBuilder content = new StringBuilder();
+            content.append("<div class=\"header\">\n");
+            content.append("    <h1>📊 Menu de Relatórios</h1>\n");
+            content.append("    <p>Selecione uma das opções abaixo para visualizar relatórios, consultas e funcionalidades do banco de dados.</p>\n");
+            content.append("</div>\n");
+            
+            content.append("<div style=\"margin: 30px 0;\">\n");
+            content.append("    <h2 style=\"color: #1e293b; margin-bottom: 20px;\">Relatórios Básicos</h2>\n");
+            content.append("    <div class='menu-relatorios' style='margin-top: 20px;'>\n");
+            content.append("        <a href='/relatorios?type=times_estatisticas' class='btn btn-primary' style='display:block; margin-bottom:10px;'>Times com Estatísticas</a>\n");
+            content.append("        <a href='/relatorios?type=estatisticas_posicao' class='btn btn-primary' style='display:block; margin-bottom:10px;'>Estatísticas por Posição</a>\n");
+            content.append("        <a href='/relatorios?type=times_estadios' class='btn btn-primary' style='display:block; margin-bottom:10px;'>Times e seus Estádios</a>\n");
+            content.append("        <a href='/relatorios?type=tecnicos_experiencia' class='btn btn-primary' style='display:block; margin-bottom:10px;'>Técnicos por Experiência</a>\n");
+            content.append("        <a href='/dashboard' class='btn btn-success' style='display:block; margin-bottom:10px;'>Gráficos de Estatística (Dashboard)</a>\n");
+            content.append("    </div>\n");
+            content.append("</div>\n");
+            
+            content.append("<div style=\"margin: 30px 0;\">\n");
+            content.append("    <h2 style=\"color: #1e293b; margin-bottom: 20px;\">Funções, Procedimentos e Triggers</h2>\n");
+            content.append("    <p style=\"color: #64748b; margin-bottom: 15px;\">Execute funções, procedimentos e visualize os efeitos dos triggers do banco de dados.</p>\n");
+            content.append("    <a href='/relatorios?submenu=funcoes' class='btn btn-primary' style='display:block; margin-bottom:10px;'>⚙️ Funções, Procedimentos e Triggers</a>\n");
+            content.append("</div>\n");
+            
+            content.append("<div style=\"margin: 30px 0;\">\n");
+            content.append("    <h2 style=\"color: #1e293b; margin-bottom: 20px;\">Views e Consultas</h2>\n");
+            content.append("    <p style=\"color: #64748b; margin-bottom: 15px;\">Visualize views e execute consultas com filtros e gráficos.</p>\n");
+            content.append("    <a href='/relatorios?submenu=consultas' class='btn btn-primary' style='display:block; margin-bottom:10px;'>📊 Views e Consultas</a>\n");
+            content.append("</div>\n");
+            
+            String html = Template.render("Menu de Relatórios", "relatorios", content.toString());
             sendResponse(exchange, html, 200);
         }
 
