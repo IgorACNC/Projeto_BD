@@ -58,15 +58,30 @@ public class FuncaoProcedimentoDAO {
     /**
      * Executa o procedimento sp_GerarListaElenco e retorna a lista
      */
-    public String gerarListaElenco(int timeId) throws SQLException {
-        String sql = "CALL sp_GerarListaElenco(?, ?)";
+    // ... dentro da classe FuncaoProcedimentoDAO ...
+
+    public String gerarListaElenco(int timeId) {
+        String sql = "{CALL sp_GerarListaElenco(?, ?)}";
+        String lista = null;
         try (Connection conn = ConnectionFactory.getConnection();
-                CallableStatement cs = conn.prepareCall(sql)) {
-            cs.setInt(1, timeId);
-            cs.registerOutParameter(2, Types.LONGVARCHAR);
-            cs.execute();
-            return cs.getString(2);
+             CallableStatement stmt = conn.prepareCall(sql)) {
+            
+            stmt.setInt(1, timeId);
+            
+            // LINHA ORIGINAL COM PROBLEMA (DA SUA IMAGEM):
+            // stmt.registerOutParameter(2, Types.VARCHAR); 
+            
+            // CORREÇÃO: Altere para Types.LONGVARCHAR
+            stmt.registerOutParameter(2, Types.LONGVARCHAR);
+            
+            stmt.execute();
+            
+            lista = stmt.getString(2);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return lista;
     }
 
     /**

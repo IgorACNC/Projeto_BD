@@ -443,6 +443,10 @@ public class FuncoesProcedimentosHandler implements HttpHandler {
         } else if ("elenco".equals(procedimento)) {
             int timeId = Integer.parseInt(params.get("time_id"));
             String lista = dao.gerarListaElenco(timeId);
+
+            if (lista == null) {
+                lista = "A procedure retornou NULL (verifique os dados no banco)";
+            }
             resultado = "<pre style='background: #f1f5f9; padding: 15px; border-radius: 5px;'>" + lista + "</pre>";
         }
         
