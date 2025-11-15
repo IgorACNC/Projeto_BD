@@ -13,18 +13,21 @@ END$$
 DELIMITER ;
 
 -- procedimento usa um cursor para iterar sobre os jogadores de um time e concatená-los em uma única string de saída
-DELIMITER $$
-CREATE PROCEDURE sp_GerarListaElenco(IN time_id INT, OUT lista_elenco TEXT)
+DELIMITER //
+CREATE PROCEDURE sp_GerarListaElenco(
+    IN p_time_id INT,
+    OUT lista_elenco TEXT
+)
 BEGIN
     DECLARE done INT DEFAULT FALSE;
     DECLARE nome_jogador VARCHAR(100);
-    DECLARE posicao_jogador VARCHAR(20);
-    
+    DECLARE posicao_jogador VARCHAR(20); 
+
     DECLARE cur_elenco CURSOR FOR 
-        SELECT nome, posicao_jogador 
+        SELECT Jogador.posicao_jogador, Jogador.nome 
         FROM Jogador 
-        WHERE fk_time = time_id 
-        ORDER BY posicao_jogador, nome;
+        WHERE Jogador.fk_time = p_time_id 
+        ORDER BY Jogador.posicao_jogador, Jogador.nome;
         
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
     
@@ -33,14 +36,21 @@ BEGIN
     OPEN cur_elenco;
     
     loop_jogadores: LOOP
-        FETCH cur_elenco INTO nome_jogador, posicao_jogador;    
+        FETCH cur_elenco INTO posicao_jogador, nome_jogador; 
+        
         IF done THEN
             LEAVE loop_jogadores;
         END IF;
-        
-        SET lista_elenco = CONCAT(lista_elenco, posicao_jogador, ': ', nome_jogador, '\n');
+
+        SET lista_elenco = CONCAT(
+            lista_elenco, 
+            IFNULL(posicao_jogador, 'Sem Posição'), 
+            ': ', 
+            IFNULL(nome_jogador, 'Sem Nome'), 
+            '\n'
+        );
     END LOOP;
     
     CLOSE cur_elenco;
-END$$
+END //
 DELIMITER ;
