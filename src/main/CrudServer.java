@@ -177,73 +177,73 @@ public class CrudServer {
             
             // Gráfico 1: Distribuição por Posição (Pizza)
             content.append("        <div style=\"background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">\n");
-            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">1. Distribuição de Jogadores por Posição</h3>\n");
+            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">Distribuição de Jogadores por Posição</h3>\n");
             content.append("            <canvas id=\"chartPosicao\"></canvas>\n");
             content.append("        </div>\n");
             
             // Gráfico 2: Top Artilheiros (Barras)
             content.append("        <div style=\"background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">\n");
-            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">2. Top 10 Artilheiros</h3>\n");
+            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">Top 10 Artilheiros</h3>\n");
             content.append("            <canvas id=\"chartArtilheiros\"></canvas>\n");
             content.append("        </div>\n");
             
             // Gráfico 3: Distribuição de Gols por Faixa (Barras - Histograma)
             content.append("        <div style=\"background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">\n");
-            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">3. Distribuição de Gols por Faixa</h3>\n");
+            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">Distribuição de Gols por Faixa</h3>\n");
             content.append("            <canvas id=\"chartFaixasGols\"></canvas>\n");
             content.append("        </div>\n");
             
             // Gráfico 4: Correlação Idade vs Gols (Linha)
             content.append("        <div style=\"background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">\n");
-            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">4. Correlação: Idade vs Média de Gols</h3>\n");
+            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">Correlação: Idade vs Média de Gols</h3>\n");
             content.append("            <canvas id=\"chartIdadeGols\"></canvas>\n");
             content.append("        </div>\n");
             
             // Gráfico 5: Top Times por Gols (Barras)
             content.append("        <div style=\"background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">\n");
-            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">5. Top 10 Times por Gols</h3>\n");
+            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">Top 10 Times por Gols</h3>\n");
             content.append("            <canvas id=\"chartTimesGols\"></canvas>\n");
             content.append("        </div>\n");
             
             // Gráfico 6: Pés Dominantes (Pizza)
             content.append("        <div style=\"background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">\n");
-            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">6. Distribuição de Pés Dominantes</h3>\n");
+            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">Distribuição de Pés Dominantes</h3>\n");
             content.append("            <canvas id=\"chartPes\"></canvas>\n");
             content.append("        </div>\n");
             
             // Gráfico 7: Nacionalidades (Barras)
             content.append("        <div style=\"background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">\n");
-            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">7. Distribuição por Nacionalidade</h3>\n");
+            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">Distribuição por Nacionalidade</h3>\n");
             content.append("            <canvas id=\"chartNacionalidades\"></canvas>\n");
             content.append("        </div>\n");
             
             // Gráfico 8: Altura vs Gols de Cabeça (Dispersão/Linha)
             content.append("        <div style=\"background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">\n");
-            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">8. Correlação: Altura vs Gols de Cabeça</h3>\n");
+            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">Correlação: Altura vs Gols de Cabeça</h3>\n");
             content.append("            <canvas id=\"chartAlturaCabeca\"></canvas>\n");
             content.append("        </div>\n");
             
             // Gráfico 9: Radar - Gols e Assistências por Posição
-            content.append("        <div style=\"background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">\n");
-            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">9. Radar: Gols e Assistências por Posição</h3>\n");
-            content.append("            <canvas id=\"chartRadar\"></canvas>\n");
-            content.append("        </div>\n");
+            //content.append("        <div style=\"background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">\n");
+            //content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">Radar: Gols e Assistências por Posição</h3>\n");
+            //content.append("            <canvas id=\"chartRadar\"></canvas>\n");
+            //content.append("        </div>\n");
             
             // Gráfico 10: Top Times por Sócios (Barras)
             content.append("        <div style=\"background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">\n");
-            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">10. Top 10 Times por Sócios</h3>\n");
+            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">Top 10 Times por Sócios</h3>\n");
             content.append("            <canvas id=\"chartSocios\"></canvas>\n");
             content.append("        </div>\n");
             
             // Gráfico 11: Estatísticas por Posição (Barras Múltiplas)
             content.append("        <div style=\"background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">\n");
-            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">11. Estatísticas por Posição (Média, Desvio)</h3>\n");
+            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">Estatísticas por Posição (Média, Desvio)</h3>\n");
             content.append("            <canvas id=\"chartEstatisticasPosicao\"></canvas>\n");
             content.append("        </div>\n");
             
             // Gráfico 12: Top Estádios por Capacidade
             content.append("        <div style=\"background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">\n");
-            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">12. Top 10 Estádios por Capacidade</h3>\n");
+            content.append("            <h3 style=\"color: #1e293b; margin-bottom: 15px;\">Top 10 Estádios por Capacidade</h3>\n");
             content.append("            <canvas id=\"chartEstadios\"></canvas>\n");
             content.append("        </div>\n");
             
