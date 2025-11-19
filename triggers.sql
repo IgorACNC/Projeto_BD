@@ -32,24 +32,6 @@ DELIMITER ;
 
 /*
  * JUSTIFICATIVA SEMÂNTICA (Trigger 02):
- * Garante a integridade dos dados ao impedir que um time seja deletado
- * se ele ainda possui jogadores vinculados (quant_jogadores > 0).
- * É disparado ANTES de um DELETE na tabela 'Time'.
- */
-DELIMITER //
-CREATE TRIGGER trg_ImpedirExclusaoTimeComJogadores
-BEFORE DELETE ON Time
-FOR EACH ROW
-BEGIN
-    IF OLD.quant_jogadores > 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Erro: Nao e permitido excluir um time que ainda possui jogadores cadastrados!';
-    END IF;
-END //
-DELIMITER ;
-
-/*
- * JUSTIFICATIVA SEMÂNTICA (Trigger 03):
  * Este é o par do Trigger 01. Ele mantém a coluna 'quant_jogadores'
  * sincronizada quando um novo jogador é adicionado ao elenco.
  * É disparado APÓS um novo jogador ser inserido e
@@ -63,23 +45,5 @@ BEGIN
     UPDATE Time
     SET quant_jogadores = quant_jogadores + 1
     WHERE id_time = NEW.fk_time;
-END //
-DELIMITER ;
-
-/*
- * JUSTIFICATIVA SEMÂNTICA (Trigger 04 - Novo):
- * Este é o complemento do Trigger 03. Ele mantém a coluna 'quant_jogadores'
- * sincronizada quando um jogador é removido do elenco.
- * É disparado APÓS um jogador ser deletado da tabela 'Jogador'
- * e decrementa (-1) a contagem no time ao qual o jogador pertencia.
- */
-DELIMITER //
-CREATE TRIGGER trg_AtualizarQuantJogadoresAposDelete
-AFTER DELETE ON Jogador
-FOR EACH ROW
-BEGIN
-    UPDATE Time
-    SET quant_jogadores = quant_jogadores - 1
-    WHERE id_time = OLD.fk_time;
 END //
 DELIMITER ;
